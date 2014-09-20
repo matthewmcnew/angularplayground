@@ -12,7 +12,7 @@ head
   // build:css(.tmp) styles/main.css
   link(rel='stylesheet', href='styles/main.css')
   // endbuild
-  body(ng-app='projectxInterfaceApp')
+  body(ng-app='projectxApp')
     // Add your site or application content here
     .container
       .header
@@ -20,15 +20,13 @@ head
           li.active
             a(ng-href='#') Home
           li
-            a(ng-href='#/about') About
+            a(ng-href='#') About
           li
             a(ng-href='#') Contact
         h3.text-muted projectxInterface
-      div(ng-view='')
+      .ui-view
+
       .footer
-        p
-          span.glyphicon.glyphicon-heart
-          | from the Yeoman team
     // build:js(app) scripts/oldieshim.js
     //if lt IE 9
     script(src='bower_components/es5-shim/es5-shim.js')
@@ -56,11 +54,11 @@ head
     script(src='bower_components/angular-sanitize/angular-sanitize.js')
     script(src='bower_components/angular-animate/angular-animate.js')
     script(src='bower_components/angular-touch/angular-touch.js')
-    script(src='bower_components/angular-route/angular-route.js')
+    script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
     // endbower
     // endbuild
     // build:js({.tmp,app}) scripts/scripts.js
     script(src='scripts/app.js')
-    script(src='scripts/controllers/main.js')
+    script(src='scripts/controllers/login.js')
     script(src='scripts/controllers/about.js')
     // endbuild

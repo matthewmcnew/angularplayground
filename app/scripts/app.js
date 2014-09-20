@@ -2,32 +2,28 @@
 
 /**
  * @ngdoc overview
- * @name projectxInterfaceApp
+ * @name projectxApp
  * @description
- * # projectxInterfaceApp
+ * # projectxApp
  *
  * Main module of the application.
  */
 angular
-  .module('projectxInterfaceApp', [
+  .module('projectxApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
-    'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("/login");
+
+    $stateProvider
+      .state('login', {
+        url: "/login",
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
       });
   });
