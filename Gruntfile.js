@@ -21,11 +21,54 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var env = grunt.option('env') || process.env.GRUNT_ENV || 'development';
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     yeoman: appConfig,
+
+    ngconstant: {
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {%= __ngModule %}',
+        name: 'config'
+      },
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'development',
+            apiEndpoint: 'http://localhost:3000/api'
+          }
+        }
+      },
+      staging: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'staging',
+            apiEndpoint: 'http://staging-projectx-api.herokuapp.com/api'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        constants: {
+          ENV: {
+            name: 'production',
+            apiEndpoint: ' http://pro-projectx-interface.herokuapp.com/api'
+          }
+        }
+      }
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -434,6 +477,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:' + env,
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -457,6 +501,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:' + env,
     'wiredep',
     'jade',
     'useminPrepare',

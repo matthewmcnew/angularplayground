@@ -16,7 +16,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'config'
   ])
   .config(function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix('projectX');
