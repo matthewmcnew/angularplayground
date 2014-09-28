@@ -1,7 +1,15 @@
 h1 login
 form(name='loginForm', ng-submit='login()')
-  label(for='email') Email:
-    input#email(type='text', ng-model='credentials.email')
+  div(ng-if="errors")
+    | Error Logging in
+
+  .form-group
+    label(for='email') Email:
+    input.form-control#email(type='text', ng-model='credentials.email', required)
+
+  .form-group
     label(for='password') Password:
-    input#password(type='password', ng-model='credentials.password')
-    button(type='submit') Login
+    input.form-control#password(type='password', ng-model='credentials.password', required)
+
+  .form-group
+    button.btn.btn-default(type='submit') Login

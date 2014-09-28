@@ -1,11 +1,14 @@
 angular.module('projectxApp')
-  .controller('SignupCtrl', function ($scope, Auth) {
+  .controller('SignupCtrl', function ($scope, Auth, $state) {
     $scope.user = {
     };
 
-    $scope.signup = function signup(){
-      Auth.signup($scope.user).then(function(data){
-      }, function(args) {
-      });
+    $scope.signup = function signup() {
+      Auth.signup($scope.user).then(
+        function () {
+          $state.go('inside');
+        },function (errors) {
+          $scope.errors = errors;
+        });
     };
   });
