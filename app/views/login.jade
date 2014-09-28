@@ -1,1 +1,7 @@
 h1 login
+form(name='loginForm', ng-submit='login()')
+  label(for='email') Email:
+    input#email(type='text', ng-model='credentials.email')
+    label(for='password') Password:
+    input#password(type='password', ng-model='credentials.password')
+    button(type='submit') Login

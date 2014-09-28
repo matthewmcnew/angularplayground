@@ -8,5 +8,15 @@
  * Controller of the projectxApp
  */
 angular.module('projectxApp')
-  .controller('LoginCtrl', function ($scope) {
+  .controller('LoginCtrl', function ($scope, Auth) {
+    $scope.credentials = {
+      username: '',
+      password: ''
+    };
+
+    $scope.login = function login(){
+      Auth.login($scope.credentials).then(function(data){
+        debugger;
+      });
+    };
   });

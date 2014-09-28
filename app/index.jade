@@ -17,12 +17,6 @@ head
     .container
       .header
         ul.nav.nav-pills.pull-right
-          li.active
-            a(ng-href='#') Home
-          li
-            a(ng-href='#') About
-          li
-            a(ng-href='#') Contact
         h3.text-muted projectxInterface
       .ui-view
 
@@ -60,5 +54,8 @@ head
     // build:js({.tmp,app}) scripts/scripts.js
     script(src='scripts/app.js')
     script(src='scripts/controllers/login.js')
-    script(src='scripts/controllers/about.js')
+    script(src='scripts/controllers/signup.js')
+    script(src='scripts/constants/userRoles.js')
+    script(src='scripts/constants/apiLocation.js')
+    script(src='scripts/services/auth.js')
     // endbuild

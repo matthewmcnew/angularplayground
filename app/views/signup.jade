@@ -1,0 +1,18 @@
+h1 login
+form(name='SignupForm', ng-submit='signup()')
+  label(for='first_name') First Name:
+  input#first_name(type='text', ng-model='user.first_name')
+
+  label(for='last_name') Last Name:
+  input#last_name(type='text', ng-model='user.last_name')
+
+  label(for='email') Email:
+  input#email(type='text', ng-model='user.email')
+
+  label(for='password') Password:
+  input#password(type='password', ng-model='user.password')
+
+  label(for='password_confirmation') Passsord Confirmation
+  input#password_confirmation(type='password', ng-model='user.password_confirmation')
+
+  button(type='submit') Signup
