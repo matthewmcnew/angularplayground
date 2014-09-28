@@ -15,6 +15,12 @@ angular.module('projectxApp')
       return deferred.promise;
     };
 
+    function signout(credentials) {
+      Session.destroy();
+
+      return $http.delete(apiLocation + "/sessions");
+    };
+
     function signup(user) {
       var deferred = $q.defer();
       $http.post(apiLocation + "/users", {user: user}).then(
@@ -36,6 +42,7 @@ angular.module('projectxApp')
     return {
       login: login,
       signup: signup,
+      signout: signout,
       isAuthenticated: isAuthenticated
     };
   });
