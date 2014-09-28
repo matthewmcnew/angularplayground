@@ -9,7 +9,6 @@ angular.module('projectxApp')
     };
 
     function signup(user){
-      console.log({user: user});
       return $http.post(apiLocation + "/users", {user: user}).then(function(response) {
         //do something
         return "sucess";

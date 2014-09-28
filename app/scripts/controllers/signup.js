@@ -4,12 +4,8 @@ angular.module('projectxApp')
     };
 
     $scope.signup = function signup(){
-        debugger;
       Auth.signup($scope.user).then(function(data){
-        debugger;
       }, function(args) {
-        debugger;
-
       });
     };
   });

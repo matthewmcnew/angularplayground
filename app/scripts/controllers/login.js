@@ -16,7 +16,6 @@ angular.module('projectxApp')
 
     $scope.login = function login(){
       Auth.login($scope.credentials).then(function(data){
-        debugger;
       });
     };
   });
