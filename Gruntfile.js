@@ -32,7 +32,7 @@ module.exports = function (grunt) {
     ngconstant: {
       options: {
         space: '  ',
-        wrap: '"use strict";\n\n {%= __ngModule %}',
+        wrap: '\'use strict\';\n\n {%= __ngModule %}',
         name: 'config'
       },
       development: {
@@ -374,7 +374,7 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '.tmp',
+            cwd: '<%= yeoman.dist %>',
             src: ['*.html', 'views/{,*/}*.html'],
             dest: '<%= yeoman.dist %>'
           }
@@ -424,6 +424,16 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
+            dot: true,
+            cwd: '.tmp',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.html',
+              'views/{,*/}*.html'
+            ]
+          },
+          {
+            expand: true,
             cwd: '.tmp/images',
             dest: '<%= yeoman.dist %>/images',
             src: ['generated/*']
@@ -433,6 +443,19 @@ module.exports = function (grunt) {
             cwd: '.',
             src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
             dest: '<%= yeoman.dist %>'
+          },
+          {
+            expand: true,
+            dest: '<%= yeoman.dist %>',
+            cwd: 'heroku',
+            src: '*',
+            rename: function (dest, src) {
+              var path = require('path');
+              if (src === 'distpackage.json') {
+                return path.join(dest, 'package.json');
+              }
+              return path.join(dest, src);
+            }
           }
         ]
       },

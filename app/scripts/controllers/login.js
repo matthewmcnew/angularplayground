@@ -11,7 +11,7 @@ angular.module('projectxApp')
       Auth.login($scope.credentials).then(
         function () {
           $state.go('inside');
-        },function (errors) {
+        },function () {
           $scope.errors = true;
         }
       );

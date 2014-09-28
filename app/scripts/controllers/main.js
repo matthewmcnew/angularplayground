@@ -8,5 +8,5 @@
  * Controller of the projectxApp
  */
 angular.module('projectxApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function () {
   });

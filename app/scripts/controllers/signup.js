@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('projectxApp')
   .controller('SignupCtrl', function ($scope, Auth, $state) {
     $scope.user = {

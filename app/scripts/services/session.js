@@ -7,15 +7,15 @@ angular.module('projectxApp')
     function create(newToken) {
       localStorageService.set('accessToken', newToken);
       accessToken = newToken;
-    };
+    }
 
     function destroy() {
       accessToken = null;
-    };
+    }
 
     function getToken() {
       return accessToken;
-    };
+    }
 
     return {
       create: create,
