@@ -1,0 +1,17 @@
+h1 Create password for new account
+
+form(name='SetupForm', ng-submit='setup()')
+  .form-group(ng-class='{"has-error": errors.password}')
+    label(for='password') Password:
+    div(ng-repeat="error in errors.password")
+      div {{error}}
+    input.form-control#password(type='password', ng-model='user.password', required)
+
+  .form-group(ng-class='{"has-error": errors.password_confirmation}')
+    label(for='password_confirmation') Passsord Confirmation
+    div(ng-repeat="error in errors.password_confirmation")
+      div {{error}}
+    input.form-control#password_confirmation(type='password', ng-model='user.password_confirmation', required)
+
+  .form-group
+    button.btn.btn-default(type='submit') Submit

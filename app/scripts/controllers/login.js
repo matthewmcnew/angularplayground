@@ -8,6 +8,7 @@ angular.module('projectxApp')
     };
 
     $scope.login = function login() {
+      debugger
       Auth.login($scope.credentials).then(
         function () {
           $state.go('inside');
