@@ -52,8 +52,32 @@ angular
         data: {
           role: userRoles.pubilc
         }
-      });
-  }).run(function($rootScope, userRoles, Auth, $state){
+      }).state('companies', {
+        abstract: true,
+        url: '/companies',
+        template: '<ui-view/>'
+      }).state('companies.new', {
+        url: '/new',
+        templateUrl: 'views/companies/new.html',
+        controller: 'CompaniesCtrl',
+        data: {
+          role: userRoles.pubilc
+        }
+      }).state('companies.index', {
+        url: '/',
+        templateUrl: 'views/companies/index.html',
+        controller: 'CompaniesCtrl',
+        data: {
+          role: userRoles.pubilc
+        }
+      }).state('companies.show', {
+        url: '/companies/:companyId',
+        templateUrl: 'companies/show.html',
+        controller: 'CompaniesCtrl',
+        data: {
+          role: userRoles.pubilc
+        }
+      })}).run(function($rootScope, userRoles, Auth, $state){
     $rootScope.$on('$stateChangeStart', function (event, next) {
       var nextRole = next.data.role;
       if(nextRole === userRoles.user){
@@ -65,3 +89,4 @@ angular
     });
 
   });
+

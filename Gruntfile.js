@@ -22,9 +22,7 @@ module.exports = function (grunt) {
   };
 
   var env = 'staging';
-
   // Define the configuration for all the tasks
-
 
   grunt.initConfig({
 
@@ -548,4 +546,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+  
+  grunt.loadNpmTasks('grunt-replace');
 };

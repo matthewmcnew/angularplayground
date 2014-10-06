@@ -1,0 +1,26 @@
+h1 Create Company
+
+form(name='CreateForm', ng-submit='create()')
+  .form-group(ng-class='{"has-error": errors.first_name}')
+    label(for='first_name') Name:
+    div(ng-repeat="error in errors.name")
+      div {{error}}
+    input.form-control#name(type='text', ng-model='company.name', required)
+
+  .form-group(ng-class='{"has-error": errors.ein}')
+    label(for='ein') EIN:
+    div(ng-repeat="error in errors.ein")
+      div {{error}}
+    input.form-control#ein(type='text', ng-model='company.ein', required)
+
+  .form-group(ng-class='{"has-error": errors.accounting_method}')
+    label(for='accounting_method') Accounting Method:
+    div(ng-repeat="error in errors.accounting_method")
+      div {{error}}
+    select.form-control#ein(type='text', ng-model='company.accounting_method', required)
+      option(selected="selected") -- Chose Method --
+      option cash
+      option accrual
+
+  .form-group
+    button.btn.btn-default(type='submit') Submit
