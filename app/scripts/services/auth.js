@@ -6,7 +6,7 @@ angular.module('projectxApp')
       var deferred = $q.defer();
       $http.post(ENV.apiEndpoint + '/sessions', credentials).then(
         function (response) {
-          Session.create(response.data.access_token);
+          Session.create(response.data.user.access_token);
           deferred.resolve();
         }, function () {
           deferred.reject();

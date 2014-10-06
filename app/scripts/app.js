@@ -23,7 +23,6 @@ angular
     localStorageServiceProvider.setPrefix('projectX');
   }).config(function ($stateProvider, $urlRouterProvider, userRoles) {
     $urlRouterProvider.otherwise('/login');
-
     $stateProvider
       .state('login', {
         url: '/login',
@@ -42,9 +41,16 @@ angular
       }).state('inside', {
         url: '/inside',
         templateUrl: 'views/inside.html',
-        controller: 'MainCtrl',
+        controller: 'CompaniesCtrl',
         data: {
           role: userRoles.user
+        }
+      }).state('setup', {
+        url: '/users/:userId/setup/:token',
+        templateUrl: 'views/setup.html',
+        controller: 'SetupCtrl',
+        data: {
+          role: userRoles.pubilc
         }
       });
   }).run(function($rootScope, userRoles, Auth, $state){
