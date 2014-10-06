@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  var env = grunt.option('env') || process.env.GRUNT_ENV || 'development';
+  var env = 'staging';
 
   // Define the configuration for all the tasks
 
@@ -548,6 +548,4 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-
-  grunt.registerTask('heroku:staging', 'build');
 };
