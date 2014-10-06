@@ -6,12 +6,14 @@ div(class='table-responsive' ng-show='companies')
           th Name
           th EIN
           th NAICS Code
+          th Industry
           th Accounting Method
 
         tr(ng-repeat='company in companies')
           td {{ company.name }}
           td {{ company.ein }}
           td {{ company.naics_code }}
+          td {{ company.industry }}
           td {{ company.accounting_method }}
 
 div(class='row')
