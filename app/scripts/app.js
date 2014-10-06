@@ -41,7 +41,7 @@ angular
       }).state('inside', {
         url: '/inside',
         templateUrl: 'views/inside.html',
-        controller: 'MainCtrl',
+        controller: 'CompaniesCtrl',
         data: {
           role: userRoles.user
         }
