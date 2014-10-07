@@ -6,4 +6,4 @@ div(class='row')
 hr
 ul(class="unstyled")
   li(ng-repeat='company in companies')
-    a(ng-click='show(company.id)') {{ company.name }}
+    a(ui-sref='companies.show({ companyId: company.id })') {{ company.name }}

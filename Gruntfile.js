@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  var env = 'staging';
+  var env = grunt.option('env') || process.env.GRUNT_ENV || 'development';
   // Define the configuration for all the tasks
 
   grunt.initConfig({

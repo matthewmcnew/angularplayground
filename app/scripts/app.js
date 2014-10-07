@@ -61,19 +61,32 @@ angular
         templateUrl: 'views/companies/new.html',
         controller: 'CompaniesCtrl',
         data: {
-          role: userRoles.pubilc
+          role: userRoles.user
         }
       }).state('companies.index', {
         url: '/',
         templateUrl: 'views/companies/index.html',
-        controller: 'CompaniesCtrl',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + '/users/' + $stateParams.userId + '/companies' + '?access_token=' + Session.getToken())
+            .then(
+              function (response) {
+                $scope.companies = response.data.companies;
+              }
+            );
+        },
         data: {
-          role: userRoles.pubilc
+          role: userRoles.user
         }
       }).state('companies.show', {
-        url: '/companies/:companyId',
-        templateUrl: 'companies/show.html',
-        controller: 'CompaniesCtrl',
+        url: '/:companyId',
+        templateUrl: 'views/companies/show.html',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + '/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
+            .then(
+              function(response){
+                $scope.company = response.data.company;
+              });
+        },
         data: {
           role: userRoles.pubilc
         }
