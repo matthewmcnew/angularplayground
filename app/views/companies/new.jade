@@ -1,6 +1,15 @@
 h1 Create Company
 
 form(name='CreateForm', ng-submit='create()')
+  .form-group(ng-repeat="field in fields")
+    div(ng-if= "field.type == 'input'")
+      div(ng-switch on="field.type")
+        div(ng-switch-when=input)
+          input.form-control(type='text',ng-model="company.{{ field.name }}", placeholder="{{ field.name }}", required)
+    div(ng-if= "field.type == 'select'")
+      select.form-control(type='text', ng-model='company.accounting_method', required)
+      option(ng-repeat= "option in field.options") {{ option }}
+
   .form-group(ng-class='{"has-error": errors.first_name}')
     label(for='first_name') Name:
     div(ng-repeat="error in errors.name")
