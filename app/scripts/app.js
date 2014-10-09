@@ -16,6 +16,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
+    'ui.bootstrap',
     'LocalStorageModule',
     'config'
   ])
@@ -67,7 +68,7 @@ angular
         url: '/',
         templateUrl: 'views/companies/index.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + '/users/' + $stateParams.userId + '/companies' + '?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint + 'api/users/' + $stateParams.userId + '/companies' + '?access_token=' + Session.getToken())
             .then(
               function (response) {
                 $scope.companies = response.data.companies;
@@ -81,7 +82,7 @@ angular
         url: '/:companyId',
         templateUrl: 'views/companies/show.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + '/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
             .then(
               function(response){
                 $scope.company = response.data.company;
