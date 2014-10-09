@@ -3,11 +3,8 @@ h1 Create Company
 form(name='CreateForm', ng-submit='create()')
   .form-group(ng-repeat="field in fields")
     div(ng-if= "field.type == 'input'")
-      input.form-control(type='text',ng-model="company[field.name]", placeholder="{{ field.name }}", required)
-    div(ng-if= "field.type == 'select'")
-      select.form-control(type='text', ng-model='company[field.name]', required)
-        option(ng-repeat="option in field.options") 
-          {{ option }}
-
+      input.form-control(type='text',ng-model="company[field.name]", placeholder="Enter {{ field.label }}", required)
+    div(ng-if="field.type == 'select'")
+      input.form-control(type='text',ng-model="company[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)  
   .form-group
     button.btn.btn-default(type='submit') Submit

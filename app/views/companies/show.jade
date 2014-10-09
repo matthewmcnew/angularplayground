@@ -1,4 +1,12 @@
 a(ui-sref="companies.index") Company Index
 
-h3{{ company.name }}
+h3 {{ company.name }}
+hr
 
+dl.dl-horizontal
+  dt EIN
+  dd {{ company.ein }}
+  dt NAICS 
+  dd {{ company.naics_code }}
+  dt Accounting Method
+  dd {{ company.accounting_method }}

@@ -42,7 +42,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://localhost:3000/api'
+            apiEndpoint: 'http://localhost:3000/'
           }
         }
       },
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'staging',
-            apiEndpoint: 'http://staging-projectx-api.herokuapp.com/api'
+            apiEndpoint: 'http://staging-projectx-api.herokuapp.com/'
           }
         }
       },
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       jade: {
-        files: ['<%= yeoman.app %>/{,*/}*.jade'],
+        files: ['<%= yeoman.app %>/views/{,*/}*.jade'],
         tasks: ['jade']
       },
       bower: {
@@ -546,6 +546,4 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-  
-  grunt.loadNpmTasks('grunt-replace');
 };
