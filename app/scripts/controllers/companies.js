@@ -17,11 +17,11 @@ angular.module('projectxApp')
             $scope.links = response.data.company.links;
           }
         );
-    };
+    }
     
     $scope.post_link = function() {
       return _.chain($scope.links)
-        .filter(function(link) { return link.rel == 'create'; })
+        .filter(function(link) { return link.rel === 'create'; })
         .pluck('href')
         .value();
     }

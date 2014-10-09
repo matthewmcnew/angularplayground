@@ -72,7 +72,6 @@ angular
             .then(
               function (response) {
                 $scope.companies = response.data.companies;
-                debugger
               }
             );
         },
