@@ -59,14 +59,7 @@ angular
       }).state('companies.new', {
         url: '/new',
         templateUrl: 'views/companies/new.html',
-        controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + '/users/' + $stateParams.userId + '/companies/new' + '?access_token=' + Session.getToken())
-            .then(
-              function (response) {
-                $scope.fields = response.data.company.fields;
-              }
-            );
-        },
+        controller: 'CompaniesCtrl',
         data: {
           role: userRoles.user
         }

@@ -2,9 +2,20 @@
 
 angular.module('projectxApp')
   .controller('CompaniesCtrl', function ($scope, $http, $state, ENV, $q, Session) {
+
     var accessToken = Session.getToken();
+
     $scope.company = {
 
+    };
+    
+    if($state.current.name === 'companies.new') {
+      $http.get(ENV.apiEndpoint + '/users/' + $state.userId + '/companies/new' + '?access_token=' + Session.getToken())
+        .then(
+          function (response) {
+            $scope.fields = response.data.company.fields;
+          }
+        );
     };
     
     $scope.create = function create(){
