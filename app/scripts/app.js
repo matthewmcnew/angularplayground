@@ -25,6 +25,13 @@ angular
   }).config(function ($stateProvider, $urlRouterProvider, userRoles) {
     $urlRouterProvider.otherwise('/login');
     $stateProvider
+      .state('home', {
+        url: '/',
+        templateUrl: 'views/inside.html',
+        data: {
+          role: userRoles.user
+        }
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -92,15 +99,14 @@ angular
           role: userRoles.pubilc
         }
       })}).run(function($rootScope, userRoles, Auth, $state){
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-      var nextRole = next.data.role;
-      if(nextRole === userRoles.user){
-        if(!Auth.isAuthenticated()) {
-          event.preventDefault();
-          $state.go('login');
-        }
-      }
-    });
-
-  });
+        $rootScope.$on('$stateChangeStart', function (event, next) {
+          var nextRole = next.data.role;
+          if(nextRole === userRoles.user){
+            if(!Auth.isAuthenticated()) {
+              event.preventDefault();
+              $state.go('login');
+            }
+          }
+        });
+      });
 
