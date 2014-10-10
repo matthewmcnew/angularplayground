@@ -1,15 +1,18 @@
-h1 login
-form(name='loginForm', ng-submit='login()')
-  div(ng-if="errors")
-    | Error Logging in
-
-  .form-group
-    label(for='email') Email:
-    input.form-control#email(type='text', ng-model='credentials.email', required)
-
-  .form-group
-    label(for='password') Password:
-    input.form-control#password(type='password', ng-model='credentials.password', required)
-
-  .form-group
-    button.btn.btn-default(type='submit') Login
+.panel.panel-primary
+  .panel-heading
+    h3.panel-title Sign In
+  .panel-body
+    form(name='loginForm', ng-submit='login()')
+      div(ng-if="errors")
+        | Error Logging in
+    
+      .form-group
+        label(for='email') Email:
+        input.form-control#email(type='text', ng-model='credentials.email', required)
+    
+      .form-group
+        label(for='password') Password:
+        input.form-control#password(type='password', ng-model='credentials.password', required)
+    
+      .form-group
+        button.btn.btn-default(type='submit') Login

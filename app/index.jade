@@ -7,6 +7,7 @@ head
   // Place favicon.ico and apple-touch-icon.png in the root directory
   // build:css(.) styles/vendor.css
   // bower:css
+  link(href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css')
   link(rel='stylesheet', href='bower_components/bootstrap-css-only/css/bootstrap.css')
   // endbower
   // endbuild
@@ -14,21 +15,26 @@ head
   link(rel='stylesheet', href='styles/main.css')
   // endbuild
   body(ng-app='projectxApp')
-    // Add your site or application content here
-    .container
-      .header(ng-controller="HeaderCtrl")
-        ul.nav.nav-pills.pull-right(ng-if="!authenticated")
-          li
-            a(ui-sref='signup') Sign Up
-          li
-            a(ui-sref='login') Log In
-        ul.nav.nav-pills.pull-right(ng-if="authenticated")
-          li
-            a(ng-click='signout()') Sign out
-        h3.text-muted projectxInterface
-      .ui-view
+    .header(ng-controller="HeaderCtrl")
+      nav.navbar.navbar-default(role='navigation')
+        .container-fluid
+          .navbar-header
+            a.navbar-brand.logo(href='#') CxoSoft
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right(ng-if="!authenticated")
+              li
+                div
+                  a.btn.btn-success.navbar-btn(ui-sref='signup') Sign Up
+              li
+                div
+                  a.btn.btn-default.navbar-btn(ui-sref='login') Sign In 
+            ul.nav.navbar-nav.navbar-right(ng-if="authenticated")            
+              li
+                div
+                  a.btn.btn-default.navbar-btn(ng-click='signout()') Sign out
+      .container
+        .ui-view
 
-      .footer
     // build:js(.) scripts/oldieshim.js
     //if lt IE 9
     script(src='bower_components/es5-shim/es5-shim.js')
