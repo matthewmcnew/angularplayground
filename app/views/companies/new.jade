@@ -14,4 +14,4 @@ form(name='CreateForm', ng-submit='create()')
     div(ng-if="field.type == 'select'")
       input.form-control(type='text',ng-model="company[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)  
   .form-group
-    button.btn.btn-default(type='submit') Submit
+    button.btn.btn-success.pull-right(type='submit') Create Company

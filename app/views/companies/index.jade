@@ -1,14 +1,13 @@
-o.breadcrumb
+ol.breadcrumb
   li 
     a(ui-sref='inside') Home
   li.active Companies
-
 hr
-div(class='row')
-  div(class="col-md-8") Companies
-  div(class="col-md-4")
-    a(href='#/companies/new') New
+.row
+  .col-md-12
+    a.btn.btn-success.pull-right(href='#/companies/new') New
 hr
-ul(class="unstyled")
-  li(ng-repeat='company in companies')
-    a(ui-sref='companies.show({ companyId: company.id })') {{ company.name }}
+.list-group
+  a.list-group-item(ng-repeat='company in companies', ui-sref='companies.show({ companyId: company.id })') 
+    h4.list-group-item-heading {{ company.name }}
+  
