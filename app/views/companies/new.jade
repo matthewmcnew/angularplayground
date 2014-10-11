@@ -1,5 +1,12 @@
-h1 Create Company
+o.breadcrumb
+  li
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref='companies.index') Companies
+  li.active Create Company
+hr
 
+h5 Create new company
 form(name='CreateForm', ng-submit='create()')
   .form-group(ng-repeat="field in fields")
     div(ng-if= "field.type == 'input'")

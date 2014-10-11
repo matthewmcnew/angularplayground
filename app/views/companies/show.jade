@@ -1,6 +1,10 @@
-a(ui-sref="companies.index") Company Index
+o.breadcrumb
+  li 
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref='companies.index') Companies
+  li.active {{ company.name }}
 
-h3 {{ company.name }}
 hr
 
 dl.dl-horizontal
