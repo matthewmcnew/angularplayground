@@ -58,6 +58,17 @@ body {
   font-size: 19px;  
 }
 
+a#signup-link:hover {
+  text-decoration: none;
+}
+
+button#signup {
+  margin-top: 5px;
+}
+
+.login {
+  padding-top: 55px;
+}
 
 /* Main marketing message and sign up button */
 .jumbotron {

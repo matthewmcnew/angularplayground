@@ -1,18 +1,27 @@
-.panel.panel-primary
-  .panel-heading
-    h3.panel-title Sign In
-  .panel-body
-    form(name='loginForm', ng-submit='login()')
-      div(ng-if="errors")
-        | Error Logging in
-    
-      .form-group
-        label(for='email') Email:
-        input.form-control#email(type='text', ng-model='credentials.email', required)
-    
-      .form-group
-        label(for='password') Password:
-        input.form-control#password(type='password', ng-model='credentials.password', required)
-    
-      .form-group
-        button.btn.btn-default(type='submit') Login
+div.row
+  div.col-sm-6.col-md-offset-2
+    .panel.panel-primary
+      .panel-heading
+        h3.panel-title Sign In
+      .panel-body
+        form(name='loginForm', ng-submit='login()')
+          div(ng-if="errors")
+            | Error Logging in
+        
+          .form-group
+            div.input-group
+              span.input-group-addon
+                i.fa.fa-envelope-o.fa-fw
+              input.form-control#email(type='text', ng-model='credentials.email', placeholder='Email', required)
+            
+          .form-group
+            div.input-group
+              span.input-group-addon
+                i.fa.fa-key.fa-fw
+              input.form-control#password(type='password', ng-model='credentials.password', placeholder='Password', required)
+        
+        .form-group
+          div.col-sm-8.col-md-offset-2.login
+            button.btn.btn-lg.btn-block.btn-primary(type='submit') Login
+            a#signup-link(ui-sref='signup')
+              button.btn.btn-lg.btn-block.btn-default#signup Sign up
