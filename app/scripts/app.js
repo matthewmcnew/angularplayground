@@ -60,6 +60,13 @@ angular
         data: {
           role: userRoles.pubilc
         }
+      }).state('timesheet', {
+        url: '/timesheet/new',
+        templateUrl: 'views/users/timesheet.html',
+        controller: 'TimesheetCtrl',
+        data: {
+          role: userRoles.user
+        }
       }).state('companies', {
         abstract: true,
         url: '/companies',
