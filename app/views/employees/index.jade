@@ -1,0 +1,21 @@
+.row
+  .col-md-12
+    .panel.panel-info
+      .panel-heading
+        h3.panel-title Employees
+      .panel-body
+        table.table.table-striped
+          thead
+            tr
+              th First Name
+              th Last Name
+              th Email
+          tbody
+            tr(ng-repeat="employee in employees")
+              td {{ employee.first_name }}
+              td {{ employee.last_name }}
+              td {{ employee.email }}
+            
+        
+a.btn.btn-success(ui-sref='companies.employees.new({companyId: companyId})') New Employee
+

@@ -1,0 +1,20 @@
+h5 Create new employee
+form(name='CreateForm', ng-submit='create()')
+  .form-group(ng-repeat="field in fields")
+    div(ng-if= "field.type == 'string' && field.options === undefined")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="employee[field.name]", placeholder="Enter {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length > 5")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="employee[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length <= 5")
+      label {{ field.label }}
+      select.form-control(type='text', ng-model='employee[field.name]', required)
+            option(ng-repeat= "option in field.options") {{ option }}
+    div(ng-if="field.type == 'boolean'")
+      .checkbox
+        label 
+          input(type='checkbox',ng-model="employee[field.name]")
+          {{ field.label }}
+  .form-group
+    button.btn.btn-success.pull-right(type='submit') Create Employee

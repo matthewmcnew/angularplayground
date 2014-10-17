@@ -1,16 +1,24 @@
-o.breadcrumb
+ol.breadcrumb
   li 
     a(ui-sref='inside') Home
   li
     a(ui-sref='companies.index') Companies
   li.active {{ company.name }}
-
 hr
 
-dl.dl-horizontal
-  dt.pull-left EIN
-  dd {{ company.ein }}
-  dt NAICS 
-  dd {{ company.naics_code }}
-  dt Accounting Method
-  dd {{ company.accounting_method }}
+.row
+  .col-md-8
+    .panel.panel-info
+      .panel-heading
+        h3.panel-title Company Info
+      .panel-body          
+        dl.dl-horizontal(ng-repeat="(key,value) in company")
+          dt.pull-left {{ key }}
+          dd {{ value }}
+  .col-md-4
+    .panel.panel-success
+      .panel-heading
+        h3.panel-title Links
+      .panel-body          
+        a(ui-sref='companies.employees.index({companyId: company.id})') Employee
+

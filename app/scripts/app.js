@@ -93,10 +93,29 @@ angular
             .then(
               function(response){
                 $scope.company = response.data.company;
+                debugger
               });
         },
         data: {
-          role: userRoles.pubilc
+          role: userRoles.user
+        }
+      }).state('companies.employees', {
+        abtract: true,
+        url: '/:companyId/employees',
+        template: '<ui-view/>' 
+      }).state('companies.employees.new', {
+        url: '/new',
+        templateUrl: 'views/employees/new.html',
+        controller: 'EmployeesCtrl',
+        data: {
+          role: userRoles.user
+        }
+      }).state('companies.employees.index', {
+        url: '/',
+        templateUrl: 'views/employees/index.html',
+        controller: 'EmployeesCtrl',
+        data: {
+          role: userRoles.user
         }
       })}).run(function($rootScope, userRoles, Auth, $state){
         $rootScope.$on('$stateChangeStart', function (event, next) {
