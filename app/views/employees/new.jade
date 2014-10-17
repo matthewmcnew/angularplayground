@@ -1,4 +1,11 @@
-h5 Create new employee
+ol.breadcrumb
+  li 
+    a(ui-sref="companies.show({companyId: company.id})") {{ company.name }}
+  li 
+    a(ui-sref="companies.employees.index({companyId: company.id})") Employees
+  li.active Invite Employee
+hr
+
 form(name='CreateForm', ng-submit='create()')
   .form-group(ng-repeat="field in fields")
     div(ng-if= "field.type == 'string' && field.options === undefined")

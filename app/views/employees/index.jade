@@ -1,3 +1,14 @@
+ol.breadcrumb
+  li 
+    a(ui-sref='companies.index') Companies
+  li 
+    a(ui-sref="companies.show({companyId: company.id})") {{ company.name }}
+  li.active Invite Employee
+hr
+.row
+  .col-md-12
+    a.btn.btn-success.pull-right(ui-sref='companies.employees.new({companyId: company.id})') New Employee
+hr
 .row
   .col-md-12
     .panel.panel-info
@@ -11,11 +22,9 @@
               th Last Name
               th Email
           tbody
-            tr(ng-repeat="employee in employees")
+            tr(ng-repeat="employee in company.employees")
               td {{ employee.first_name }}
               td {{ employee.last_name }}
               td {{ employee.email }}
-            
-        
-a.btn.btn-success(ui-sref='companies.employees.new({companyId: companyId})') New Employee
+
 

@@ -13,6 +13,7 @@ angular.module('projectxApp')
           function (response) {
             $scope.fields = response.data.employee.fields;
             $scope.links = response.data.links;
+            $scope.company = response.data.company;
           }
         );
     }
@@ -21,8 +22,8 @@ angular.module('projectxApp')
       $http.get(ENV.apiEndpoint + 'api/companies/' + $state.params.companyId + '/employees?access_token=' + Session.getToken())
         .then(
           function (response) {
-            $scope.employees = response.data.employees;
-            $scope.companyId = $state.params.companyId
+            $scope.employees = response.data.company.employees;
+            $scope.company = response.data.company;
           }
         );
     }
