@@ -5,111 +5,55 @@ ol.breadcrumb
 hr
 .row
   .col-md-12
-    div.col-md-4.pull-right
-      div.btn.btn-group
-        a.btn.btn-default.btn-lg
-          i.fa.fa-arrow-left
-        a.btn.btn-default.btn-lg#week Aug 15 - Aug 22
-        a.btn.btn-default.btn-lg
-          i.fa.fa-arrow-right
-        
-    div.col-md-12
+    section.tab(ng-controller="TimesheetsCtrl as timesheet")
+      ul.nav.nav-pills.well
+        li(ng-class="{ active: timesheet.isSelected(1) }")
+          a(ng-click="timesheet.selectTab(1)") Mon
+            span#total-hours 8
+        li(ng-class="{ active: timesheet.isSelected(2) }")
+          a(ng-click="timesheet.selectTab(2)") Tue
+        li(ng-class="{ active: timesheet.isSelected(3) }")
+          a(ng-click="timesheet.selectTab(3)") Wed
       table.table.table-hover
-        thead.well
-          tr
-            th
-            th Sun
-            th Mon
-            th Tue
-            th Wed
-            th Thu
-            th Fri
-            th Sat
-            th Total
-            th 
-            th
         tbody
-          tr
-            td Description of Work goes here 
+          tr(ng-show="timesheet.isSelected(1)" ng-repeat="row in timesheet.rows")
+            td 
+              h4 Project {{ row }}
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row {{ row }}")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
             td.col-xs-1
-              input.form-control
+              a.btn.btn-default Save
             td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-            td
-              i.fa.fa-plus-square-o
-            td
               i.fa.fa-trash
-          tr
-            td Description of Work goes here 
+          tr(ng-show="timesheet.isSelected(2)" ng-repeat="row in timesheet.rows")
+            td 
+              h4 Project {{ row }}
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row {{ row }}")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
             td.col-xs-1
-              input.form-control
+              a.btn.btn-default Save
             td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-            td
-              i.fa.fa-plus-square-o
-            td
               i.fa.fa-trash
-          tr
-            td Description of Work goes here 
+          tr(ng-show="timesheet.isSelected(3)")
+            td 
+              h4 Project {{ row }}
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row {{ row }}")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
             td.col-xs-1
-              input.form-control
+              a.btn.btn-default Save
             td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-              input.form-control
-            td.col-xs-1
-            td
-              i.fa.fa-plus-square-o
-            td
               i.fa.fa-trash
-        tfoot.well
-          tr
-            td
-              a.btn.btn-success Save
-            td Total
-            td Total
-            td Total
-            td Total
-            td Total
-            td Total
-            td Total
-            td
-            td
-            td
+      .row
+        .col-lg-push-right Total: 
 
+      a.btn.btn-lg.btn-success(ng-click="timesheet.addRow()")
+        span
+          i.fa.fa-plus-square-o 
+        span Add Row
 
-
-      
-  
-
-  

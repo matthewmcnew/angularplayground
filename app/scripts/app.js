@@ -63,7 +63,7 @@ angular
       }).state('timesheet', {
         url: '/timesheet/new',
         templateUrl: 'views/users/timesheet.html',
-        controller: 'TimesheetCtrl',
+        controller: 'TimesheetsCtrl',
         data: {
           role: userRoles.user
         }

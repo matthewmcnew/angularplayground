@@ -5,5 +5,25 @@ angular.module('projectxApp')
 
     var accessToken = Session.getToken();
     // $scope.days =[ 'Sun','Mon','Tue','Wed','Thu','Fri', 'Sat']
+    this.tab = 1;
+
+    this.selectTab = function(newValue){
+      this.tab = newValue;
+    };
+
+    this.isSelected = function(tabName){
+      return this.tab === tabName;
+    };
+
+    // pass count of line items into row
+    this.rows = ['Row 1', 'Row 2'];
+  
+    this.counter = 3;
+    
+    this.addRow = function() {
+      
+      this.rows.push('Row ' + this.counter);
+      this.counter++;
+    }
   });
 
