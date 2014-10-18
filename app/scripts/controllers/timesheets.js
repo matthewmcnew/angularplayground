@@ -7,6 +7,13 @@ angular.module('projectxApp')
     // $scope.days =[ 'Sun','Mon','Tue','Wed','Thu','Fri', 'Sat']
     this.tab = 1;
 
+    $scope.timesheet = {
+
+    };
+
+    $scope.lineItem = {
+
+    };
     this.selectTab = function(newValue){
       this.tab = newValue;
     };
@@ -25,5 +32,15 @@ angular.module('projectxApp')
       this.rows.push('Row ' + this.counter);
       this.counter++;
     }
+
+    $http.get(ENV.apiEndpoint + 'api/employees/10/timesheets/new?access_token=' + Session.getToken())
+        .then(
+          function (response) {
+            $scope.fields = response.data.timesheet.fields;
+            $scope.line_time = response.data.timesheet.line_item.fields;
+            $scope.links = response.data.links;
+          }
+        );
+
   });
 
