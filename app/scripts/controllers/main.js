@@ -7,6 +7,4 @@
  * # MainCtrl
  * Controller of the projectxApp
  */
-angular.module('projectxApp')
-  .controller('MainCtrl', function () {
-  });
+angular.module('projectxApp').controller('MainCtrl', function () {});

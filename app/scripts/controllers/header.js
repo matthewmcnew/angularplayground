@@ -14,4 +14,9 @@ angular.module('projectxApp')
       $state.go('login');
     };
 
+    //Success listener: User logged in
+    $scope.$on('Auth.signout', function() {
+      $state.go('login');
+    });
+
   });
