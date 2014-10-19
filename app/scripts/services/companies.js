@@ -4,7 +4,7 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
 
    // Object to hold resources for companies.
    var _api = {};
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/users/:userId/compaies/new', {userId:'@id'});
+   _api.createForm = $resource(ENV.apiEndpoint + 'api/users/:userId/companies/new', {userId:'@id'});
    _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies');
 
    return {
