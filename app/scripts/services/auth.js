@@ -1,48 +1,48 @@
 'use strict';
 
-angular.module('projectxApp')
-  .factory('Auth', function Auth($http, ENV, $q, Session) {
-    function login(credentials) {
-      var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + 'api/sessions', credentials).then(
-        function (response) {
-          Session.create(response.data.user.access_token);
+angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, ENV, $q, Session, $resource) {
+    
+  // Object to hold resources for companies.
+  var _api = {};
+  _api.login = $resource(ENV.apiEndpoint + 'api/sessions');
 
-          deferred.resolve();
-        }, function () {
-          deferred.reject();
-        }
-      );
-      return deferred.promise;
-    }
+  return {
 
-    function signout() {
-      Session.destroy();
-      return $http.delete(ENV.apiEndpoint + 'api/sessions');
-    }
+    login: function (credentials) {
+      _api.login.save(credentials).$promise.then(function(response) {
+        Session.create(response.user.access_token);
+        $rootScope.$broadcast('Auth.login', response);
+      }, function(error) {
+        $rootScope.$broadcast('Auth.loginError', error);
+      });
+    }, 
 
-    function signup(user) {
-      var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + 'api/users', {user: user}).then(
-        function (response) {
-          Session.create(response.data.user.access_token);
-          deferred.resolve();
-        }, function failure(response) {
-          deferred.reject(response.data.messages);
-        }
-      );
-
-      return deferred.promise;
-    }
-
-    function isAuthenticated(){
+    isAuthenticated: function() {
       return !!Session.getToken();
+    },
+
+    signout: function() {
+       Session.destroy();
+       return $http.delete(ENV.apiEndpoint + 'api/sessions');
     }
 
-    return {
-      login: login,
-      signup: signup,
-      signout: signout,
-      isAuthenticated: isAuthenticated
-    };
-  });
+    // signup: function (user) {
+    //   var deferred = $q.defer();
+    //   $http.post(ENV.apiEndpoint + 'api/users', {user: user}).then(
+    //     function (response) {
+    //       Session.create(response.data.user.access_token);
+    //       deferred.resolve();
+    //     }, function failure(response) {
+    //       deferred.reject(response.data.messages);
+    //     }
+    //   );
+
+    //   return deferred.promise;
+    // }
+
+    // function isAuthenticated(){
+    //   return !!Session.getToken();
+    // }
+  };
+
+});
