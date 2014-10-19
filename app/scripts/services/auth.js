@@ -5,6 +5,7 @@ angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, E
   // Object to hold resources for companies.
   var _api = {};
   _api.login = $resource(ENV.apiEndpoint + 'api/sessions');
+  _api.signup = $resource(ENV.apiEndpoint + 'api/users');
 
   return {
 
@@ -22,27 +23,20 @@ angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, E
     },
 
     signout: function() {
-       Session.destroy();
-       return $http.delete(ENV.apiEndpoint + 'api/sessions');
+      _api.login.delete().$promise.then(function(response) {
+        Session.destroy();
+        $rootScope.$broadcast('Auth.signout', response);
+      });
+    },
+
+    signup: function (user) {
+      _api.signup.save({user: user}).$promise.then(function(response) {
+        Session.create(response.user.access_token);
+        $rootScope.$broadcast('Auth.signup', response);
+      }, function (response) {
+        $rootScope.$broadcast('Auth.signupError', response);
+      });
     }
-
-    // signup: function (user) {
-    //   var deferred = $q.defer();
-    //   $http.post(ENV.apiEndpoint + 'api/users', {user: user}).then(
-    //     function (response) {
-    //       Session.create(response.data.user.access_token);
-    //       deferred.resolve();
-    //     }, function failure(response) {
-    //       deferred.reject(response.data.messages);
-    //     }
-    //   );
-
-    //   return deferred.promise;
-    // }
-
-    // function isAuthenticated(){
-    //   return !!Session.getToken();
-    // }
   };
 
 });
