@@ -18,7 +18,8 @@ angular
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',
-    'config'
+    'config', 
+    'underscore'
   ])
   .config(function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix('projectX');
@@ -93,7 +94,6 @@ angular
             .then(
               function(response){
                 $scope.company = response.data.company;
-                debugger
               });
         },
         data: {
@@ -113,19 +113,28 @@ angular
       }).state('companies.employees.index', {
         url: '/',
         templateUrl: 'views/employees/index.html',
-        controller: 'EmployeesCtrl',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees?access_token=' + Session.getToken())
+            .then(
+              function (response) {
+                $scope.employees = response.data.company.employees;
+                $scope.company = response.data.company;
+              });
+        },
         data: {
           role: userRoles.user
         }
-      })}).run(function($rootScope, userRoles, Auth, $state){
-        $rootScope.$on('$stateChangeStart', function (event, next) {
-          var nextRole = next.data.role;
-          if(nextRole === userRoles.user){
-            if(!Auth.isAuthenticated()) {
-              event.preventDefault();
-              $state.go('login');
-            }
-          }
-        });
       });
+  }).run(function($rootScope, userRoles, Auth, $state){
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      var nextRole = next.data.role;
+      if(nextRole === userRoles.user){
+        if(!Auth.isAuthenticated()) {
+          event.preventDefault();
+          $state.go('login');
+        }
+      }
+    });
+  });
+
 

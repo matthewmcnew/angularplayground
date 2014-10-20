@@ -1,23 +1,22 @@
 'use strict';
 
-angular.module('projectxApp')
-  .controller('SetupCtrl', function ($scope, $http, $state, ENV, $q, Session) {
+angular.module('projectxApp').controller('SetupCtrl', function ($scope, $state, ENV, Session, Setup) {
+    
     $scope.user = {
     };
 
     $scope.setup = function setup() {
-      var deferred = $q.defer();
-
-      $http.post(ENV.apiEndpoint + '/users/' + $state.params.userId + '/setup_account/' + $state.params.token, $scope.user).then(
-        function (response) {
-          Session.create(response.data.user.access_token);
-          deferred.resolve();
-          $state.go('inside');
-        }, function failure(response) {
-          deferred.reject(response.data.messages);
-        }
-      );
-
+      Setup.setup($state.params.userId, $state.params.token, $scope.user);
     };
-  });
+
+    // Success listener: Setup
+    $scope.$on('Setup.setup', function() {
+      $state.go('inside');
+    });
+
+    // Failure listener: Setup Error
+    $scope.$on('Setup.setupError', function(event, response) {
+      $scope.errors = response.data.messages;
+    });
+});
 

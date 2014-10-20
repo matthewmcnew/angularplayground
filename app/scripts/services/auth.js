@@ -1,48 +1,42 @@
 'use strict';
 
-angular.module('projectxApp')
-  .factory('Auth', function Auth($http, ENV, $q, Session) {
-    function login(credentials) {
-      var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + 'api/sessions', credentials).then(
-        function (response) {
-          Session.create(response.data.user.access_token);
+angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, ENV, $q, Session, $resource) {
+    
+  // Object to hold resources for companies.
+  var _api = {};
+  _api.login = $resource(ENV.apiEndpoint + 'api/sessions');
+  _api.signup = $resource(ENV.apiEndpoint + 'api/users');
 
-          deferred.resolve();
-        }, function () {
-          deferred.reject();
-        }
-      );
-      return deferred.promise;
-    }
+  return {
 
-    function signout() {
-      Session.destroy();
-      return $http.delete(ENV.apiEndpoint + 'api/sessions');
-    }
+    login: function (credentials) {
+      _api.login.save(credentials).$promise.then(function(response) {
+        Session.create(response.user.access_token);
+        $rootScope.$broadcast('Auth.login', response);
+      }, function(error) {
+        $rootScope.$broadcast('Auth.loginError', error);
+      });
+    }, 
 
-    function signup(user) {
-      var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + 'api/users', {user: user}).then(
-        function (response) {
-          Session.create(response.data.user.access_token);
-          deferred.resolve();
-        }, function failure(response) {
-          deferred.reject(response.data.messages);
-        }
-      );
-
-      return deferred.promise;
-    }
-
-    function isAuthenticated(){
+    isAuthenticated: function() {
       return !!Session.getToken();
-    }
+    },
 
-    return {
-      login: login,
-      signup: signup,
-      signout: signout,
-      isAuthenticated: isAuthenticated
-    };
-  });
+    signout: function() {
+      _api.login.delete().$promise.then(function(response) {
+        Session.destroy();
+        $rootScope.$broadcast('Auth.signout', response);
+      });
+    },
+
+    signup: function (user) {
+      _api.signup.save({user: user}).$promise.then(function(response) {
+        Session.create(response.user.access_token);
+        $rootScope.$broadcast('Auth.signup', response);
+      }, function (response) {
+        $rootScope.$broadcast('Auth.signupError', response);
+      });
+    }
+  };
+
+});
