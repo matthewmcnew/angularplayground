@@ -76,6 +76,30 @@ angular
         data: {
           role: userRoles.user
         }
+      }).state('timesheets.index', {
+        url: '/index',
+        templateUrl: 'views/timesheets/index.html',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + 'api/employees/1/timesheets' + '?access_token=' + Session.getToken())
+            .then(
+              function (response) {
+                $scope.timesheets = response.data.timesheets;
+              }
+            );
+        },
+        data: {
+          role: userRoles.user
+        }
+      }).state('timesheets.show', {
+        url: '/:timesheetId',
+        templateUrl: 'views/timesheets/show.html',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint +  'api/employees/1/timesheets/' + $stateParams.timsheetId + '?access_token=' + Session.getToken())
+            .then(
+              function(response){
+                $scope.timesheet = response.data.timesheet;
+              });
+        },
       }).state('companies', {
         abstract: true,
         url: '/companies',

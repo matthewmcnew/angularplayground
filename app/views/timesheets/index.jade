@@ -1,0 +1,14 @@
+ol.breadcrumb
+  li 
+    a(ui-sref='inside') Home
+  li.active Companies
+hr
+.row
+  .col-md-12
+    a.btn.btn-success.pull-right(href='#/timesheets/new') New Timesheet
+hr
+.list-group
+  a.list-group-item(ng-repeat='timesheet in timesheets') 
+    h4.list-group-item-heading Dates: {{ timesheet.start_date }} - {{ timesheet.end_date }}
+    h4.list-group-item-heading Status: {{ timesheet.status }}
+    a.btn.btn-success.pull-right(ui-sref='timesheets.show({timesheetId: timesheet.id})')

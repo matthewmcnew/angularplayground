@@ -99,5 +99,26 @@ angular.module('projectxApp')
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
 
+    this.tab = 1;
+
+    this.selectTab = function(newValue){
+      this.tab = newValue;
+    };
+
+    this.isSelected = function(tabName){
+      return this.tab === tabName;
+    };
+
+    // pass count of line items into row
+    this.rows = ['Row 1', 'Row 2'];
+  
+    this.counter = 3;
+    
+    this.addRow = function() {
+      
+      this.rows.push('Row ' + this.counter);
+      this.counter++;
+    }
+
   });
 
