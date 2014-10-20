@@ -5,8 +5,8 @@ div.row
         h3.panel-title Sign In
       .panel-body
         form(name='loginForm', ng-submit='login()')
-          div(ng-if="errors")
-            | Error Logging in
+          div(ng-if="errorMessage")
+            {{errorMessage}}
         
           .form-group
             div.input-group
@@ -24,4 +24,4 @@ div.row
             div.col-sm-8.col-md-offset-2.login
               button.btn.btn-lg.btn-block.btn-primary(type='submit') Login
               a#signup-link(ui-sref='signup')
-                button.btn.btn-lg.btn-block.btn-success#signup Sign up
+                button.btn.btn-lg.btn-block.btn-default#signup Sign up

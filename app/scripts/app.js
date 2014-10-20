@@ -18,7 +18,8 @@ angular
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',
-    'config'
+    'config', 
+    'underscore'
   ])
   .config(function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix('projectX');
@@ -124,7 +125,8 @@ angular
         data: {
           role: userRoles.user
         }
-      })}).run(function($rootScope, userRoles, Auth, $state){
+      });
+    }).run(function($rootScope, userRoles, Auth, $state){
         $rootScope.$on('$stateChangeStart', function (event, next) {
           var nextRole = next.data.role;
           if(nextRole === userRoles.user){
@@ -135,4 +137,5 @@ angular
           }
         });
       });
+
 
