@@ -97,19 +97,44 @@ angular
               });
         },
         data: {
-          role: userRoles.pubilc
+          role: userRoles.user
+        }
+      }).state('companies.employees', {
+        abtract: true,
+        url: '/:companyId/employees',
+        template: '<ui-view/>' 
+      }).state('companies.employees.new', {
+        url: '/new',
+        templateUrl: 'views/employees/new.html',
+        controller: 'EmployeesCtrl',
+        data: {
+          role: userRoles.user
+        }
+      }).state('companies.employees.index', {
+        url: '/',
+        templateUrl: 'views/employees/index.html',
+        controller: function($http, $scope,$stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees?access_token=' + Session.getToken())
+            .then(
+              function (response) {
+                $scope.employees = response.data.company.employees;
+                $scope.company = response.data.company;
+              });
+        },
+        data: {
+          role: userRoles.user
         }
       });
-    }).run(function($rootScope, userRoles, Auth, $state){
-        $rootScope.$on('$stateChangeStart', function (event, next) {
-          var nextRole = next.data.role;
-          if(nextRole === userRoles.user){
-            if(!Auth.isAuthenticated()) {
-              event.preventDefault();
-              $state.go('login');
-            }
-          }
-        });
-      });
+  }).run(function($rootScope, userRoles, Auth, $state){
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      var nextRole = next.data.role;
+      if(nextRole === userRoles.user){
+        if(!Auth.isAuthenticated()) {
+          event.preventDefault();
+          $state.go('login');
+        }
+      }
+    });
+  });
 
 
