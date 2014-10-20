@@ -8,7 +8,17 @@ hr
     a.btn.btn-success.pull-right(href='#/timesheets/new') New Timesheet
 hr
 .list-group
-  a.list-group-item(ng-repeat='timesheet in timesheets') 
-    h4.list-group-item-heading Dates: {{ timesheet.start_date }} - {{ timesheet.end_date }}
-    h4.list-group-item-heading Status: {{ timesheet.status }}
-    a.btn.btn-success.pull-right(ui-sref='timesheets.show({timesheetId: timesheet.id})')
+  table.table.table-striped
+    thead
+      tr
+        th Date range
+        th status
+        th
+
+    tr(ng-repeat='timesheet in timesheets') 
+
+      td {{ timesheet.start_date }} - {{ timesheet.end_date }}
+      td {{ timesheet.status }}
+      td
+        i.fa.fa-pencil-square-o(ui-sref='timesheets.show({timesheetId: timesheet.id})')
+        
