@@ -4,6 +4,9 @@ angular.module('projectxApp')
   .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, _) {
     var accessToken = Session.getToken();
     $scope.timesheet = {};
+    $scope.item_project = '';
+    $scope.item_description = '';
+    $scope.item_hours = 0;
     $scope.errors = {};
     $scope.createForm = function() { 
       
@@ -113,8 +116,8 @@ angular.module('projectxApp')
     this.line_items = [];
    
     this.addLineItem = function() {
-      this.line_items.push({ product: 'This product', hours: 4, description: 'I worked on this'  });
-      this.total = this.total + 4
+      this.line_items.push({ product: $scope.item_project, hours: $scope.item_hours, description: $scope.item_description  });
+      this.total = this.total + Number($scope.item_hours)
     }
 
   });

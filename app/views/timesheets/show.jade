@@ -4,7 +4,7 @@ ol.breadcrumb
   li.active Companies
 hr
 .row
-  .col-md-6.col-md-offset-2
+  .col-md-12
     section.tab(ng-controller="TimesheetsCtrl as timesheet")
       ul.nav.nav-pills.well.center-box
         li(ng-class="{ active: timesheet.isSelected(1) }").text-center
@@ -50,11 +50,11 @@ hr
           form
             tr(ng-show="timesheet.isSelected(1)")
               td.col-xs-2
-                input.form-control(placeholder="Project") 
+                input.form-control(placeholder="Project", ng-model='item_project') 
               td.col-lg 
-                input.form-control(placeholder="Description of Work for row")
+                input.form-control(placeholder="Description of Work for row", ng-model='item_description')
               td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours")
+                input.form-control(placeholder="Hours", ng-model='item_hours')
               td.pull-right.col-xs-1
                 input(type="checkbox", checked) 
                 label Billable?
