@@ -94,10 +94,11 @@ angular
         url: '/:timesheetId',
         templateUrl: 'views/timesheets/show.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint +  'api/employees/1/timesheets/' + $stateParams.timsheetId + '?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint +  'api/timesheets/1' + '?access_token=' + Session.getToken())
             .then(
               function(response){
                 $scope.timesheet = response.data.timesheet;
+                $scope.line_items = response.data.timesheet.line_items;
               });
         },
       }).state('companies', {
@@ -133,7 +134,6 @@ angular
             .then(
               function(response){
                 $scope.company = response.data.company;
-                debugger
               });
         },
         data: {

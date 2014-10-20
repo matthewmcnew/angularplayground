@@ -5,12 +5,12 @@ angular.module('projectxApp')
     var accessToken = Session.getToken();
     $scope.timesheet = {};
     $scope.errors = {};
-    
     $scope.createForm = function() { 
       
       var id = ($state.userId === undefined || $state.userId === null) ? 1 : $state.userId;
       TimesheetsService.createForm(id, accessToken); 
     };
+
 
     /*
     * Controllers UI update Listeners 
@@ -34,7 +34,7 @@ angular.module('projectxApp')
 
     //Success listener: New Company created
     $scope.$on('TimesheetsService.submitForm', function() {
-      $state.go('timesheet.index');
+      $state.go('timesheets.show');
     });
 
     // Failure Listerner: New timesheet had validation errors.
@@ -100,6 +100,7 @@ angular.module('projectxApp')
     $scope.format = $scope.formats[0];
 
     this.tab = 1;
+    this.total = 0;
 
     this.selectTab = function(newValue){
       this.tab = newValue;
@@ -109,15 +110,11 @@ angular.module('projectxApp')
       return this.tab === tabName;
     };
 
-    // pass count of line items into row
-    this.rows = ['Row 1', 'Row 2'];
-  
-    this.counter = 3;
-    
-    this.addRow = function() {
-      
-      this.rows.push('Row ' + this.counter);
-      this.counter++;
+    this.line_items = [];
+   
+    this.addLineItem = function() {
+      this.line_items.push({ product: 'This product', hours: 4, description: 'I worked on this'  });
+      this.total = this.total + 4
     }
 
   });
