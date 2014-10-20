@@ -61,9 +61,17 @@ angular
         data: {
           role: userRoles.pubilc
         }
-      }).state('timesheet', {
-        url: '/timesheet/new',
-        templateUrl: 'views/users/timesheet.html',
+      }).state('timesheets', {
+        url: '/timesheets',
+        abstract: true,
+        template: '<ui-view/>',
+        controller: 'TimesheetsCtrl',
+        data: {
+          role: userRoles.user
+        }
+      }).state('timesheets.new', {
+        url: '/new',
+        templateUrl: 'views/timesheets/new.html',
         controller: 'TimesheetsCtrl',
         data: {
           role: userRoles.user

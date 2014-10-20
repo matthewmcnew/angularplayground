@@ -1,0 +1,31 @@
+section(ng-init='createForm()')
+ol.breadcrumb
+  li
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref='companies.index') Companies
+  li.active Create Timesheet
+hr
+
+form(name='CreateForm', ng-submit='create()')
+  .form-group
+    .row
+      
+      .col-sm-4
+        label Start Date
+        p.input-group
+          input.form-control(type='text', datepicker-popup='MM/dd/yyyy', ng-model="start_date", is-open='opened1', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+          span.input-group-btn
+              button.btn.btn-default(type='button', ng-click="open($event, 'opened1')")
+                i.fa.fa-calendar(style="font-size: 20px;")
+
+      .col-sm-4
+        label End Date
+        p.input-group
+          input.form-control(type='text', datepicker-popup='MM/dd/yyyy', ng-model="end_date", is-open='opened2', min-date='minDate', max-date='\'2015-06-22\'', datepicker-options='dateOptions', date-disabled='disabled(date, mode)', ng-required='true', close-text='Close')
+          span.input-group-btn
+              button.btn.btn-default(type='button', ng-click="open($event, 'opened2')")
+                i.fa.fa-calendar(style="font-size: 20px;")
+   
+  .form-group
+    button.btn.btn-success.pull-left(type='submit') Create Timesheet
