@@ -13,7 +13,7 @@ angular.module('projectxApp').factory('Setup', function Auth($rootScope, ENV, Se
 		setup: function(userId, token, user) {
 			_api.setup.save({userId, token}, {user}).$promise.then(function(response) {
 				// broadcast success event
-				Session.create(response.user.access_token);
+				Session.create(response.user);
 				$rootScope.$broadcast('Setup.setup');
 			}, 
 			function(error) {
