@@ -84,7 +84,7 @@ angular.module('projectxApp')
 
 
     $scope.createLineItems = function() {
-      TimeSheetItemService.getLineItems(userId, accessToken);
+      TimeSheetItemService.getLineItems();
     }
     /*
     * Controllers UI update Listeners 
@@ -119,16 +119,15 @@ angular.module('projectxApp')
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
 
-    this.tab = 1;
-    this.total = 0;
+    
+    $scope.total = 0;
+    $scope.tab = 0;
 
-    $scope.selectTab = function(newValue){
-      this.tab = newValue;
+    $scope.selectTab = function(newTab){
+      $scope.tab = newTab;
     };
 
-    $scope.isSelected = function(tabName){
-      return this.tab === tabName;
-    };
+    
 
     this.line_items = [];
    

@@ -8,7 +8,7 @@ hr
   .col-md-12
     section.tab(ng-controller="TimesheetsCtrl")
       ul.nav.nav-pills.well.center-box
-        li(ng-repeat="date in timesheet.dates", ng-class="{ active: isSelected($index) }").text-center
+        li(ng-repeat="date in timesheet.dates", ng-class="{ active: tab===$index }").text-center
           a(ng-click="selectTab($index)") {{date.day}}
           span
             {{date.date}}/{{date.month}}
@@ -19,7 +19,7 @@ hr
 
       table.table.table-hover
         tbody
-          tr(ng-show="timesheet.isSelected(1)", ng-repeat="line_item in timesheet.line_items")
+          tr(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
             td 
               {{line_item.product}}
             td.col-lg 
@@ -34,137 +34,13 @@ hr
             td.col-xs-1
               i.fa.fa-trash
           form
-            tr(ng-show="timesheet.isSelected(1)")
+            tr
               td.col-xs-2
                 input.form-control(placeholder="Project", ng-model='item_project') 
               td.col-lg 
                 input.form-control(placeholder="Description of Work for row", ng-model='item_description')
               td.pull-right.col-xs-2
                 input.form-control(placeholder="Hours", ng-model='item_hours')
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked) 
-                label Billable?
-              td.col-xs-1
-                a.btn.btn-default(ng-click="timesheet.addLineItem()") Save
-              td.col-xs-1
-                i.fa.fa-trash
-
-          //- Day two
-          tr(ng-show="timesheet.isSelected(2)", ng-repeat="line_item2 in timesheet.line_items2")
-            td 
-              {{line_item2.product}}
-            td.col-lg 
-              {{line_item2.description}}
-            td.pull-right.col-xs-1
-              {{line_item2.hours}}
-            td.pull-right.col-xs-2
-              input(type="checkbox", checked) 
-              label Billable?
-            td.col-xs-1
-              a.btn.btn-default Save
-            td.col-xs-1
-              i.fa.fa-trash
-          form
-            tr(ng-show="timesheet.isSelected(2)")
-              td.col-xs-2
-                input.form-control(placeholder="Project") 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row")
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours")
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked) 
-                label Billable?
-              td.col-xs-1
-                a.btn.btn-default(ng-click="timesheet.addLineItem()") Save
-              td.col-xs-1
-                i.fa.fa-trash
-
-          //- Day three
-          tr(ng-show="timesheet.isSelected(3)", ng-repeat="line_item3 in timesheet.line_items3")
-            td 
-              {{line_item3.product}}
-            td.col-lg 
-              {{line_item3.description}}
-            td.pull-right.col-xs-1
-              {{line_item3.hours}}
-            td.pull-right.col-xs-2
-              input(type="checkbox", checked) 
-              label Billable?
-            td.col-xs-1
-              a.btn.btn-default Save
-            td.col-xs-1
-              i.fa.fa-trash
-          form
-            tr(ng-show="timesheet.isSelected(3)")
-              td.col-xs-2
-                input.form-control(placeholder="Project") 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row")
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours")
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked) 
-                label Billable?
-              td.col-xs-1
-                a.btn.btn-default(ng-click="timesheet.addLineItem()") Save
-              td.col-xs-1
-                i.fa.fa-trash
-
-          //- Day four
-          tr(ng-show="timesheet.isSelected(4)", ng-repeat="line_item4 in timesheet.line_items4")
-            td 
-              {{line_item4.product}}
-            td.col-lg 
-              {{line_item4.description}}
-            td.pull-right.col-xs-1
-              {{line_item4.hours}}
-            td.pull-right.col-xs-2
-              input(type="checkbox", checked) 
-              label Billable?
-            td.col-xs-1
-              a.btn.btn-default Save
-            td.col-xs-1
-              i.fa.fa-trash
-          form
-            tr(ng-show="timesheet.isSelected(4)")
-              td.col-xs-2
-                input.form-control(placeholder="Project") 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row")
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours")
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked) 
-                label Billable?
-              td.col-xs-1
-                a.btn.btn-default(ng-click="timesheet.addLineItem()") Save
-              td.col-xs-1
-                i.fa.fa-trash
-
-          //- Day five
-          tr(ng-show="timesheet.isSelected(5)", ng-repeat="line_item5 in timesheet.line_items5")
-            td 
-              {{line_item5.product}}
-            td.col-lg 
-              {{line_item5.description}}
-            td.pull-right.col-xs-1
-              {{line_item5.hours}}
-            td.pull-right.col-xs-2
-              input(type="checkbox", checked) 
-              label Billable?
-            td.col-xs-1
-              a.btn.btn-default Save
-            td.col-xs-1
-              i.fa.fa-trash
-          form
-            tr(ng-show="timesheet.isSelected(5)")
-              td.col-xs-2
-                input.form-control(placeholder="Project") 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row")
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours")
               td.pull-right.col-xs-1
                 input(type="checkbox", checked) 
                 label Billable?
