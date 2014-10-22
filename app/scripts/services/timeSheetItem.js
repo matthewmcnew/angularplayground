@@ -5,6 +5,8 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
    // Object to hold resources for companies.
    var _api = {};
    _api.createForm = $resource(ENV.apiEndpoint + 'api/timesheets/1');
+   _api.newLineItem = $resource(ENV.apiEndpoint + '/api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
+   _api.deleteLineItem = $resource(ENV.apiEndpoint + '/api/line_items/:id', {id: '@id'});
 
 	var getDates = function( d1, d2 ){
 		var weekday = new Array(7);
@@ -40,6 +42,28 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
             // broadcast success event
             var data = prepareLineItems(response);
             $rootScope.$broadcast('TimeSheetItemService.getLineItems', data);      
+
+         }, function(error) {
+            // throw error
+            throw new Error('There was an error loading the form.', error);
+         });
+      }, 
+
+      newLineItem: function(timesheet_id, billable_on) {
+      	_api.newLineItem.save({'timesheet_id': timesheet_id, 'billable_on': billable_on}).$promise.then(function(response) {
+            // broadcast success event
+            $rootScope.$broadcast('TimeSheetItemService.newLineItem', response);      
+
+         }, function(error) {
+            // throw error
+            throw new Error('There was an error loading the form.', error);
+         });
+      },
+
+      deleteLineItem: function(id) {
+      	_api.deleteLineItem.delete({'id': id}).$promise.then(function(response) {
+            // broadcast success event
+            $rootScope.$broadcast('TimeSheetItemService.deleteLineItem', response);      
 
          }, function(error) {
             // throw error
