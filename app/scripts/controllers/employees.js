@@ -1,6 +1,6 @@
 'use strict';
 angular.module('projectxApp')
-  .controller('EmployeesCtrl', function ($scope, $http, $state, ENV, $q, Session) {
+  .controller('EmployeesCtrl', function ($scope, $http, $state, ENV, $q, Session, _) {
     var accessToken = Session.getToken();
 
     $scope.employee = {
@@ -33,7 +33,7 @@ angular.module('projectxApp')
         .filter(function(link) { return link.rel === 'create'; })
         .pluck('href')
         .value();
-    }
+    };
 
     $scope.create = function (){
       var deferred = $q.defer();

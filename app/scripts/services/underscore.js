@@ -4,6 +4,7 @@ var underscore = angular.module('underscore', []);
 
 underscore.factory('_', function() {
 	
+	var _ = window._;
 	_.getDatesBetween = function( d1, d2 ){
 		var weekday = new Array(7);
 		weekday[0]=  'Sun';
@@ -28,5 +29,5 @@ underscore.factory('_', function() {
 		
 	};
 
-	return window._; // assumes underscore has already been loaded on the page
+	return _; // assumes underscore has already been loaded on the page
 });

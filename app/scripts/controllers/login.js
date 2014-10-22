@@ -3,7 +3,7 @@
 angular.module('projectxApp').controller('LoginCtrl', function ($scope, Auth, $state) {
   if(Auth.isAuthenticated()) {
     $state.go('home');
-  };
+  }
 
   // Form model for username and password
   $scope.credentials = {

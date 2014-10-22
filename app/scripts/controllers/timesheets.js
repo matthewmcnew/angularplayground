@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectxApp')
-  .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, TimeSheetItemService, _) {
+  .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, TimeSheetItemService) {
     var accessToken = Session.getToken();
     $scope.timesheet = {};
     $scope.newItem = {};
@@ -58,7 +58,7 @@ angular.module('projectxApp')
     // ----------  Gets show data for page  ---------- //
     $scope.getLineItems = function() {
       TimeSheetItemService.getLineItems();
-    }
+    };
     
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
@@ -73,7 +73,7 @@ angular.module('projectxApp')
       TimeSheetItemService.newLineItem($scope.newItem);
     };
 
-    $scope.$on('TimeSheetItemService.newLineItem', function(event, response) {
+    $scope.$on('TimeSheetItemService.newLineItem', function() {
       TimeSheetItemService.getLineItems();
     });
 
@@ -86,11 +86,11 @@ angular.module('projectxApp')
       TimeSheetItemService.deleteLineItem(id);
     };
 
-    $scope.$on('TimeSheetItemService.deleteLineItem', function(event, response) {
+    $scope.$on('TimeSheetItemService.deleteLineItem', function() {
       TimeSheetItemService.getLineItems();
     });
 
-    $scope.$on('TimeSheetItemService.deleteLineItemError', function(event, response) {
+    $scope.$on('TimeSheetItemService.deleteLineItemError', function() {
       TimeSheetItemService.getLineItems();
     });
     
@@ -121,7 +121,7 @@ angular.module('projectxApp')
     $scope.tab = 0;
 
     $scope.selectTab = function(newTab, newDate){
-      $scope.newItem.billable_on = newDate.fullDate
+      $scope.newItem.billable_on = newDate.fullDate;
       $scope.tab = newTab;
     };
 
