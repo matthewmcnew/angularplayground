@@ -1,3 +1,4 @@
+section(ng-init="createLineItems()")
 ol.breadcrumb
   li 
     a(ui-sref='inside') Home
@@ -5,27 +6,12 @@ ol.breadcrumb
 hr
 .row
   .col-md-12
-    section.tab(ng-controller="TimesheetsCtrl as timesheet")
+    section.tab(ng-controller="TimesheetsCtrl")
       ul.nav.nav-pills.well.center-box
-        li(ng-class="{ active: timesheet.isSelected(1) }").text-center
-          a(ng-click="timesheet.selectTab(1)") Mon
+        li(ng-repeat="date in timesheet.dates", ng-class="{ active: isSelected($index) }").text-center
+          a(ng-click="selectTab($index)") {{date.day}}
           span
-            {{ dt| date:'MM/dd' }}
-        li(ng-class="{ active: timesheet.isSelected(2) }").text-center
-          a(ng-click="timesheet.selectTab(2)") Tue
-          span 10/21
-            
-        li(ng-class="{ active: timesheet.isSelected(3) }").text-center
-          a(ng-click="timesheet.selectTab(3)") Wed
-          span 10/22
-
-        li(ng-class="{ active: timesheet.isSelected(4) }").text-center
-          a(ng-click="timesheet.selectTab(4)") Thu
-          span 10/23
-
-        li(ng-class="{ active: timesheet.isSelected(5) }").text-center
-          a(ng-click="timesheet.selectTab(5)") Fri
-          span 10/24
+            {{date.date}}/{{date.month}}
 
         li.pull-right
           h2 Total: 
