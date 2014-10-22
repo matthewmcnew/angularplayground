@@ -55,28 +55,35 @@ angular.module('projectxApp')
     });
 
 
-
-    // Disable weekend selection
-    // $scope.disabled = function(date, mode) {
-    //   return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    // };
-
-
-    $scope.createLineItems = function() {
+    // ----------  Gets show data for page  ---------- //
+    $scope.getLineItems = function() {
       TimeSheetItemService.getLineItems();
     }
-    /*
-    * Controllers UI update Listeners 
-    * These are usually listening for an event fired by a service that also holds
-    * data returned from the server.
-    * @param event - angular event, should always be the first parameter specified.
-    */
+    
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
-      
+      console.log($scope.timesheet);
+    });
+
+    
+
+    // ----------  Adds new line item and updates page  ---------- //
+    $scope.addLineItem = function() {
+      $scope.newItem.client = 'tester';
+      $scope.newItem.billing_rate = 10;
+      TimeSheetItemService.newLineItem($scope.newItem);
+    };
+
+    $scope.$on('TimeSheetItemService.newLineItem', function(event, response) {
+      TimeSheetItemService.getLineItems();
+    });
+
+    $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
+      $scope.errors = JSON.parse(response.data.messages);
     });
     
 
+    // ----------  Pop up date helpers  ---------- //
     $scope.toggleMin = function() {
       $scope.minDate = $scope.minDate ? null : new Date();
     };
@@ -97,7 +104,7 @@ angular.module('projectxApp')
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
 
-    
+    // ----------  Tab functions  ---------- //
     $scope.total = 0;
     $scope.tab = 0;
 
@@ -105,26 +112,6 @@ angular.module('projectxApp')
       $scope.newItem.billable_on = newDate.fullDate
       $scope.tab = newTab;
     };
-
-       
-    $scope.addLineItem = function() {
-      $scope.newItem.client = 'tester';
-      $scope.newItem.billing_rate = 10;
-      TimeSheetItemService.newLineItem($scope.newItem);
-      // this.total = this.total + Number($scope.item_hours)
-    };
-
-    $scope.$on('TimeSheetItemService.newLineItem', function(event, response) {
-      $scope.timesheet.line_items.push(response.line_item);
-    });
-
-    $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
-      $scope.errors = JSON.parse(response.data.messages);
-      console.log($scope.errors);
-    });
-    
-
-    
 
   });
 

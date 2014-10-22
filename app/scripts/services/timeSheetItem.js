@@ -15,11 +15,33 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 		return data;
 	};
 
+	var getDateTotalHours = function(data) {
+		data.timesheet.dates.filter(function(date) {
+			date.total = 0;
+			data.timesheet.line_items.filter(function(item) {
+				if (item.billable_on === date.fullDate) {
+					date.total+=Number(item.hours);
+				}
+			});
+		});
+		return data
+	};
+
+	var getTimeSheetTotalHours = function(data) {
+		data.timesheet.total = 0;
+		data.timesheet.line_items.filter(function(item) {
+			data.timesheet.total += Number(item.hours);
+		});
+		return data
+	};
+
    return {
       getLineItems: function() {
          _api.createForm.get({'access_token': Session.getToken()}).$promise.then(function(response) {
             // broadcast success event
             var data = prepareLineItems(response);
+            data = getTimeSheetTotalHours(data);
+            data = getDateTotalHours(data);
             $rootScope.$broadcast('TimeSheetItemService.getLineItems', data);      
 
          }, function(error) {

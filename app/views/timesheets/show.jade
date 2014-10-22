@@ -1,4 +1,4 @@
-section(ng-init="createLineItems()")
+section(ng-init="getLineItems()")
 ol.breadcrumb
   li 
     a(ui-sref='inside') Home
@@ -52,7 +52,7 @@ hr
               input(type="checkbox", checked) 
               label Billable?
             td.col-xs-1
-              a.btn.btn-default Save
+              a.btn.btn-default {{dayTotal}}
             td.col-xs-1
               i.fa.fa-trash
           
@@ -60,5 +60,5 @@ hr
 
       .row
         .col-lg-3.pull-right 
-          h3 Total: {{ timesheet.total }}
+          h3 Total: {{ timesheet.dates[tab].total }}
 
