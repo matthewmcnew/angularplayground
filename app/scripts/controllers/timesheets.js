@@ -137,6 +137,12 @@ angular.module('projectxApp')
       // this.total = this.total + Number($scope.item_hours)
     };
 
+    $scope.$on('TimeSheetItemService.newLineItem', function(event, response) {
+      $scope.timesheet.line_items.push(response.line_item);
+      // $scope.line_items = response.timesheet.line_items;
+    });
+    
+
     
 
   });

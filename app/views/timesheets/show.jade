@@ -6,7 +6,7 @@ ol.breadcrumb
 hr
 .row
   .col-md-12
-    section.tab(ng-controller="TimesheetsCtrl")
+    section.tab
       ul.nav.nav-pills.well.center-box
         li(ng-repeat="date in timesheet.dates", ng-class="{ active: tab===$index }").text-center
           a(ng-click="selectTab($index, date)") {{date.day}}
@@ -17,15 +17,15 @@ hr
           h2 Total: 
             span {{ timesheet.total }}
 
-      table.table.table-hover
+      table.table.table-hover(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
         tbody
-          tr(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
+          tr(ng-repeat="item in timesheet.line_items", ng-if="item.billable_on === date.fullDate")
             td 
-              {{line_item.product}}
+              {{item.project}}
             td.col-lg 
-              {{line_item.description}}
+              {{item.description}}
             td.pull-right.col-xs-1
-              {{line_item.hours}}
+              {{item.hours}}
             td.pull-right.col-xs-2
               input(type="checkbox", checked) 
               label Billable?

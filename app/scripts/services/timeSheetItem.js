@@ -52,7 +52,11 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
       }, 
 
       newLineItem: function(item, billable_on) {
-      	_api.newLineItem.save({'timesheet_id': 1, 'billable_on': billable_on}, item).$promise.then(function(response) {
+      	_api.newLineItem.save(
+      		{'timesheet_id': 1, 
+      		'billable_on': billable_on, 
+      		'access_token': Session.getToken()}, 
+      		item).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimeSheetItemService.newLineItem', response);      
 
