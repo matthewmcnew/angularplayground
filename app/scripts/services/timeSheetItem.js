@@ -38,7 +38,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 	var removeItemsWithNoDate = function(data) {
 		data.timesheet.line_items.filter(function(item) {
 			if (item.billable_on === null) {
-				data.timesheet.line_items.splice(item);
+				data.timesheet.line_items.splice(data.timesheet.line_items.indexOf(item), 1);
 			}
 		});
 		return data;
