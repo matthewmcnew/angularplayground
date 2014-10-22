@@ -24,7 +24,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 				}
 			});
 		});
-		return data
+		return data;
 	};
 
 	var getTimeSheetTotalHours = function(data) {
@@ -32,7 +32,16 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 		data.timesheet.line_items.filter(function(item) {
 			data.timesheet.total += Number(item.hours);
 		});
-		return data
+		return data;
+	};
+
+	var removeItemsWithNoDate = function(data) {
+		data.timesheet.line_items.filter(function(item) {
+			if (item.billable_on === null) {
+				data.timesheet.line_items.splice(item);
+			}
+		});
+		return data;
 	};
 
    return {
@@ -40,6 +49,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
          _api.createForm.get({'access_token': Session.getToken()}).$promise.then(function(response) {
             // broadcast success event
             var data = prepareLineItems(response);
+            data = removeItemsWithNoDate(data);
             data = getTimeSheetTotalHours(data);
             data = getDateTotalHours(data);
             $rootScope.$broadcast('TimeSheetItemService.getLineItems', data);      
