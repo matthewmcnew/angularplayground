@@ -54,29 +54,7 @@ angular.module('projectxApp')
       }
     });
 
-    /*
-    * Dynamically build parts of the form submit url
-    * based on the response from the api. 
-    * This isn't in use anymore and I need to come back
-    * and see what the reasoning was for this.
-    */
-    $scope.post_link = function() {
-      return _.chain($scope.links)
-        .filter(function(link) { return link.rel === 'create'; })
-        .pluck('href')
-        .value();
-    };
 
-    // Pop-up dates
-    $scope.today = function() {
-     $scope.dt = new Date();
-    };
-
-    $scope.today();
-
-    $scope.clear = function () {
-      $scope.dt = null;
-    };
 
     // Disable weekend selection
     // $scope.disabled = function(date, mode) {
@@ -95,7 +73,6 @@ angular.module('projectxApp')
     */
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
-      // $scope.line_items = response.timesheet.line_items;
       
     });
     
@@ -139,7 +116,11 @@ angular.module('projectxApp')
 
     $scope.$on('TimeSheetItemService.newLineItem', function(event, response) {
       $scope.timesheet.line_items.push(response.line_item);
-      // $scope.line_items = response.timesheet.line_items;
+    });
+
+    $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
+      $scope.errors = JSON.parse(response.data.messages);
+      console.log($scope.errors);
     });
     
 

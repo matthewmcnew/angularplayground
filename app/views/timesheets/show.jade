@@ -16,6 +16,28 @@ hr
         li.pull-right
           h2 Total: 
             span {{ timesheet.total }}
+      
+      form(ng-submit="addLineItem()")
+        table.table.table-hover
+          tbody
+            tr
+              td.col-xs-2
+                input.form-control(placeholder="Project", ng-model='newItem.project')
+                {{errors.project[0]}} 
+              td.col-lg 
+                input.form-control(placeholder="Description of Work for row", ng-model='newItem.description')
+                {{errors.description[0]}}
+              td.pull-right.col-xs-2
+                input.form-control(placeholder="Hours", ng-model='newItem.hours')
+                {{errors.hours[0]}}
+              td.pull-right.col-xs-1
+                input(type="checkbox", checked, ng-model='newItem.billable') 
+                label Billable?
+                input(type="hidden", ng-model='newItem.billing_rate')
+              td.col-xs-1
+                button.btn.btn-default(type='submit') Save
+              td.col-xs-1
+                i.fa.fa-trash
 
       table.table.table-hover(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
         tbody
@@ -34,24 +56,7 @@ hr
             td.col-xs-1
               i.fa.fa-trash
           
-      form(ng-submit="addLineItem()")
-        table.table.table-hover
-          tbody
-            tr
-              td.col-xs-2
-                input.form-control(placeholder="Project", ng-model='newItem.project') 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row", ng-model='newItem.description')
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours", ng-model='newItem.hours')
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked, ng-model='newItem.billable') 
-                label Billable?
-                input(type="hidden", ng-model='newItem.billing_rate')
-              td.col-xs-1
-                button.btn.btn-default(type='submit') Save
-              td.col-xs-1
-                i.fa.fa-trash
+      
 
       .row
         .col-lg-3.pull-right 
