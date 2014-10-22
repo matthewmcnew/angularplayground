@@ -15,14 +15,17 @@ underscore.factory('_', function() {
 		weekday[5] = 'Fri';
 		weekday[6] = 'Sat';
 		var oneDay = 24*3600*1000;
+		d1 = (d1*1) + oneDay;
+		d2 = (d2*1) + (oneDay*2);
 		
 		for (var d=[],ms=d1*1,last=d2*1;ms<last;ms+=oneDay){	
 			var date = new Date(ms);
 			d.push( {
+				d: date,
 				fullDate: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate(),
 				day: weekday[date.getDay()], 
 				date: date.getDate(), 
-				month: date.getUTCMonth()+1
+				month: date.getMonth()+1
 				} ); 
 		}
 		return d;
