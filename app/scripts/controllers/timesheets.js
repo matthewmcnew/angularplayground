@@ -4,6 +4,7 @@ angular.module('projectxApp')
   .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, TimeSheetItemService, _) {
     var accessToken = Session.getToken();
     $scope.timesheet = {};
+    $scope.newItem = {};
     $scope.item_project = '';
     $scope.item_description = '';
     $scope.item_hours = 0;
@@ -94,7 +95,7 @@ angular.module('projectxApp')
     */
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
-      $scope.line_items = response.timesheet.line_items;
+      // $scope.line_items = response.timesheet.line_items;
       
     });
     
@@ -123,17 +124,17 @@ angular.module('projectxApp')
     $scope.total = 0;
     $scope.tab = 0;
 
-    $scope.selectTab = function(newTab){
+    $scope.selectTab = function(newTab, newDate){
+      $scope.newItem.billable_on = newDate.fullDate
       $scope.tab = newTab;
     };
 
-    
-
-    this.line_items = [];
-   
+       
     $scope.addLineItem = function() {
-      this.line_items.push({ product: $scope.item_project, hours: $scope.item_hours, description: $scope.item_description  });
-      this.total = this.total + Number($scope.item_hours)
+      $scope.newItem.client = 'tester';
+      $scope.newItem.billing_rate = 10;
+      TimeSheetItemService.newLineItem($scope.newItem);
+      // this.total = this.total + Number($scope.item_hours)
     };
 
     

@@ -5,8 +5,8 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
    // Object to hold resources for companies.
    var _api = {};
    _api.createForm = $resource(ENV.apiEndpoint + 'api/timesheets/1');
-   _api.newLineItem = $resource(ENV.apiEndpoint + '/api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
-   _api.deleteLineItem = $resource(ENV.apiEndpoint + '/api/line_items/:id', {id: '@id'});
+   _api.newLineItem = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
+   _api.deleteLineItem = $resource(ENV.apiEndpoint + 'api/line_items/:id', {id: '@id'});
 
 	var getDates = function( d1, d2 ){
 		var weekday = new Array(7);
@@ -21,6 +21,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 		for (var d=[],ms=d1*1,last=d2*1;ms<last;ms+=oneDay){	
 			var date = new Date(ms);
 			d.push( {
+				fullDate: date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate(),
 				day: weekday[date.getDay()], 
 				date: date.getDate(), 
 				month: date.getUTCMonth()+1
@@ -41,6 +42,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
          _api.createForm.get({'access_token': Session.getToken()}).$promise.then(function(response) {
             // broadcast success event
             var data = prepareLineItems(response);
+            console.log(data);
             $rootScope.$broadcast('TimeSheetItemService.getLineItems', data);      
 
          }, function(error) {
@@ -49,8 +51,8 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
          });
       }, 
 
-      newLineItem: function(timesheet_id, billable_on) {
-      	_api.newLineItem.save({'timesheet_id': timesheet_id, 'billable_on': billable_on}).$promise.then(function(response) {
+      newLineItem: function(item, billable_on) {
+      	_api.newLineItem.save({'timesheet_id': 1, 'billable_on': billable_on}, item).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimeSheetItemService.newLineItem', response);      
 
