@@ -62,7 +62,6 @@ angular.module('projectxApp')
     
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
-      console.log($scope.timesheet);
     });
 
     
@@ -80,6 +79,19 @@ angular.module('projectxApp')
 
     $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
       $scope.errors = JSON.parse(response.data.messages);
+    });
+
+    // ----------  Deletes a line item and updates page  ---------- //
+    $scope.deleteLineItem = function(id) {
+      TimeSheetItemService.deleteLineItem(id);
+    };
+
+    $scope.$on('TimeSheetItemService.deleteLineItem', function(event, response) {
+      TimeSheetItemService.getLineItems();
+    });
+
+    $scope.$on('TimeSheetItemService.deleteLineItemError', function(event, response) {
+      TimeSheetItemService.getLineItems();
     });
     
 

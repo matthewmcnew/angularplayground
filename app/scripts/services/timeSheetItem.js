@@ -66,13 +66,13 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
       },
 
       deleteLineItem: function(id) {
-      	_api.deleteLineItem.delete({'id': id}).$promise.then(function(response) {
+      	_api.deleteLineItem.delete({'id': id, 'access_token': Session.getToken()}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimeSheetItemService.deleteLineItem', response);      
 
          }, function(error) {
             // throw error
-            throw new Error('There was an error loading the form.', error);
+            $rootScope.$broadcast('TimeSheetItemService.deleteLineItemError', error);
          });
       }
    };
