@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('projectxApp')
-  .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, _) {
+  .controller('TimesheetsCtrl', function ($scope, $state, ENV, Session, TimesheetsService, TimeSheetItemService, _) {
     var accessToken = Session.getToken();
     $scope.timesheet = {};
     $scope.item_project = '';
     $scope.item_description = '';
     $scope.item_hours = 0;
     $scope.errors = {};
-    $scope.createForm = function() { 
-      
+    
+    
+    $scope.createForm = function() {   
       var id = ($state.userId === undefined || $state.userId === null) ? 1 : $state.userId;
       TimesheetsService.createForm(id, accessToken); 
     };
-
 
     /*
     * Controllers UI update Listeners 
@@ -82,6 +82,23 @@ angular.module('projectxApp')
     //   return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     // };
 
+
+    $scope.createLineItems = function() {
+      TimeSheetItemService.getLineItems(userId, accessToken);
+    }
+    /*
+    * Controllers UI update Listeners 
+    * These are usually listening for an event fired by a service that also holds
+    * data returned from the server.
+    * @param event - angular event, should always be the first parameter specified.
+    */
+    $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
+      $scope.timesheet = response.timesheet;
+      $scope.line_items = response.timesheet.line_items;
+      
+    });
+    
+
     $scope.toggleMin = function() {
       $scope.minDate = $scope.minDate ? null : new Date();
     };
@@ -105,20 +122,22 @@ angular.module('projectxApp')
     this.tab = 1;
     this.total = 0;
 
-    this.selectTab = function(newValue){
+    $scope.selectTab = function(newValue){
       this.tab = newValue;
     };
 
-    this.isSelected = function(tabName){
+    $scope.isSelected = function(tabName){
       return this.tab === tabName;
     };
 
     this.line_items = [];
    
-    this.addLineItem = function() {
+    $scope.addLineItem = function() {
       this.line_items.push({ product: $scope.item_project, hours: $scope.item_hours, description: $scope.item_description  });
       this.total = this.total + Number($scope.item_hours)
-    }
+    };
+
+    
 
   });
 

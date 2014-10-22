@@ -92,15 +92,7 @@ angular
         }
       }).state('timesheets.show', {
         url: '/:timesheetId',
-        templateUrl: 'views/timesheets/show.html',
-        controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint +  'api/timesheets/1' + '?access_token=' + Session.getToken())
-            .then(
-              function(response){
-                $scope.timesheet = response.data.timesheet;
-                $scope.line_items = response.data.timesheet.line_items;
-              });
-        },
+        templateUrl: 'views/timesheets/show.html'
       }).state('companies', {
         abstract: true,
         url: '/companies',
