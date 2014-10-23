@@ -18,8 +18,9 @@ angular.module('projectxApp').controller('LoginCtrl', function ($scope, Auth, $s
   };
 
   //Success listener: User logged in
-  $scope.$on('Auth.login', function() {
-    $state.go('inside');
+  $scope.$on('Auth.login', function(event, response) {
+    var redirect = (response.admin) ? $state.go('inside') : $state.go('timesheets.index', {employee_id: response.employee_id});
+    return redirect;
   });
 
   // Failure Listerner: Bad credentials
