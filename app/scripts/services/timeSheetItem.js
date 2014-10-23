@@ -4,7 +4,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 
    // Object to hold resources for companies.
    var _api = {};
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/timesheets/1');
+   _api.createForm = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id', {timesheet_id: '@timesheet_id'});
    _api.newLineItem = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
    _api.deleteLineItem = $resource(ENV.apiEndpoint + 'api/line_items/:id', {id: '@id'});
 
@@ -36,8 +36,8 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 	};
 
    return {
-      getLineItems: function() {
-         _api.createForm.get({'access_token': Session.getToken()}).$promise.then(function(response) {
+      getLineItems: function(timesheet_id) {
+         _api.createForm.get({'timesheet_id': timesheet_id, 'access_token': Session.getToken()}).$promise.then(function(response) {
             // broadcast success event
             var data = prepareLineItems(response);
             data = getTimeSheetTotalHours(data);
@@ -50,12 +50,9 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
          });
       }, 
 
-      newLineItem: function(item, billable_on) {
-      	_api.newLineItem.save(
-      		{'timesheet_id': 1, 
-      		'billable_on': billable_on, 
-      		'access_token': Session.getToken()}, 
-      		item).$promise.then(function(response) {
+      newLineItem: function(item, timesheet_id) {
+      	console.log(item);
+         _api.newLineItem.save({'timesheet_id': timesheet_id}, item).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimeSheetItemService.newLineItem', response);      
 
