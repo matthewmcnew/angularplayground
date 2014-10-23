@@ -72,19 +72,22 @@ angular
       }).state('timesheets.new', {
         url: '/new',
         templateUrl: 'views/timesheets/new.html',
-        controller: 'TimesheetsCtrl',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.index', {
-        url: '/index',
+        url: '/index/:employee_id',
         templateUrl: 'views/timesheets/index.html',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.show', {
         url: '/:timesheetId',
-        templateUrl: 'views/timesheets/show.html'
+        templateUrl: 'views/timesheets/show.html', 
+        controller: function($rootScope, $stateParams){
+          $rootScope.yoId = $stateParams.timesheetId; //*** Watch Out! DOESN'T EXIST!! ***//
+          // $stateParams.itemId //*** Exists! ***//  
+        }
       }).state('companies', {
         abstract: true,
         url: '/companies',
