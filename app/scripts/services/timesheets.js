@@ -9,10 +9,9 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
 
    return {
       
-      timeSheetIndex: function(token) {
-         _api.timeSheets.get({access_token: token}).$promise.then(function(response) {
+      timeSheetIndex: function(employee_id, token) {
+         _api.timeSheets.get({'employee_id':employee_id, 'access_token': token}).$promise.then(function(response) {
             // broadcast success event
-            console.log(response)
             $rootScope.$broadcast('TimesheetsService.timeSheetIndex', response);
          }, 
          function(error) {
@@ -32,9 +31,10 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
       }, 
       
       submitForm: function(data) {
-         _api.timeSheets.save(data).$promise.then(function() {
+
+         _api.timeSheets.save(data).$promise.then(function(response) {
             // broadcast success event
-            $rootScope.$broadcast('TimesheetsService.submitForm');
+            $rootScope.$broadcast('TimesheetsService.submitForm', response);
          }, 
          function(error) {
             // broadcast failure event
