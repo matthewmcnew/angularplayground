@@ -30,7 +30,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 	var getTimeSheetTotalHours = function(data) {
 		data.timesheet.total = 0;
 		data.timesheet.line_items.filter(function(item) {
-			data.timesheet.total += Number(item.hours);
+			if(item.billable_on !== null) { data.timesheet.total += Number(item.hours); }
 		});
 		return data;
 	};
