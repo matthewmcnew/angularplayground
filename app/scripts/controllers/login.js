@@ -19,7 +19,7 @@ angular.module('projectxApp').controller('LoginCtrl', function ($scope, Auth, $s
 
   //Success listener: User logged in
   $scope.$on('Auth.login', function(event, response) {
-    var redirect = (response.admin) ? $state.go('inside') : $state.go('timesheets.index', {employee_id: response.employee_id});
+    var redirect = (response.admin) ? $state.go('inside') : $state.go('timesheets.index', {employee_id: response.employees[0].id});
     return redirect;
   });
 
