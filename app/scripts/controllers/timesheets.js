@@ -10,18 +10,30 @@ angular.module('projectxApp')
     $scope.item_hours = 0;
     $scope.errors = {};
     
+    // ----------  Gets Timesheet lists for index page  ---------- //
+    $scope.timeSheetIndex = function() {
+      TimesheetsService.timeSheetIndex(accessToken);
+    };
+
+    //Success listener: Get time sheet lists.
+    $scope.$on('TimesheetsService.timeSheetIndex', function(event, response) {
+      $scope.timesheets = response.timesheets;
+    });
+
+    // Failure Listerner: not able to get timesheets.
+    $scope.$on('TimesheetsService.timeSheetIndexError', function(event, response) {
+      console.log('waht goins on!')
+    });
+    // ----------  END - gets Timesheet lists for index page  ---------- //
+
     
+    // ----------  Create timesheet form page  ---------- //
     $scope.createForm = function() {   
       var id = ($state.userId === undefined || $state.userId === null) ? 1 : $state.userId;
       TimesheetsService.createForm(id, accessToken); 
     };
 
-    /*
-    * Controllers UI update Listeners 
-    * These are usually listening for an event fired by a service that also holds
-    * data returned from the server.
-    * @param event - angular event, should always be the first parameter specified.
-    */
+    
     $scope.$on('TimesheetsService.createForm', function(event, response) {
       $scope.fields = response.timesheet.fields;
       $scope.links = response.timesheet.links;
@@ -53,6 +65,7 @@ angular.module('projectxApp')
         }
       }
     });
+    // ----------  END - Create timesheet form page  ---------- //
 
 
     // ----------  Gets show data for page  ---------- //
