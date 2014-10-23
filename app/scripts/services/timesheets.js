@@ -4,8 +4,8 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
 
    // Object to hold resources for companies.
    var _api = {};
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/employees/1/timesheets/new', {userId:'@id'});
-   _api.timeSheets = $resource(ENV.apiEndpoint + 'api/employees/1/timesheets');
+   _api.createForm = $resource(ENV.apiEndpoint + 'api/employees/:employee_id/timesheets/new', {employee_id:'@employee_id'});
+   _api.timeSheets = $resource(ENV.apiEndpoint + 'api/employees/:employee_id/timesheets', {employee_id:'@employee_id'});
 
    return {
       
@@ -21,8 +21,8 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
          });
       },
       
-      createForm: function(id, token) {
-         _api.createForm.get({userId: id, access_token: token}).$promise.then(function(response) {
+      createForm: function(employee_id, token) {
+         _api.createForm.get({employee_id: employee_id, access_token: token}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimesheetsService.createForm', response);
          }, function(error) {
