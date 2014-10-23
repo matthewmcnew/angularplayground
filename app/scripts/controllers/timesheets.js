@@ -70,14 +70,15 @@ angular.module('projectxApp')
 
     // ----------  Gets show data for page  ---------- //
     $scope.getLineItems = function() {
+      $scope.tab = 0;
       TimeSheetItemService.getLineItems($state.params.timesheetId);
     };
     
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
+      $scope.selectTab($scope.tab,$scope.timesheet.dates[0]);
     });
 
-    
 
     // ----------  Adds new line item and updates page  ---------- //
     $scope.addLineItem = function() {
@@ -90,6 +91,7 @@ angular.module('projectxApp')
 
     $scope.$on('TimeSheetItemService.newLineItem', function() {
       TimeSheetItemService.getLineItems($state.params.timesheetId);
+      $scope.newItem = {}
     });
 
     $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
