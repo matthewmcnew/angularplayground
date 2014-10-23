@@ -91,7 +91,7 @@ angular.module('projectxApp')
 
     $scope.$on('TimeSheetItemService.newLineItem', function() {
       TimeSheetItemService.getLineItems($state.params.timesheetId);
-      $scope.newItem = {}
+      $scope.newItem = {};
     });
 
     $scope.$on('TimeSheetItemService.newLineItemError', function(event, response) {
@@ -109,6 +109,19 @@ angular.module('projectxApp')
 
     $scope.$on('TimeSheetItemService.deleteLineItemError', function() {
       TimeSheetItemService.getLineItems($state.params.timesheetId);
+    });
+
+    // ----------  Submits timesheet for approval  ---------- //
+    $scope.submitTimeSheet = function() {
+      TimesheetsService.submitTimeSheet($state.params.timesheetId, accessToken, $scope.timesheet.employee_id);
+    };
+
+    $scope.$on('TimesheetsService.submitTimeSheet', function() {
+      $state.go('timesheets.index', {employee_id: $scope.timesheet.employee_id});
+    });
+
+    $scope.$on('TimesheetsService.submitTimeSheetError', function() {
+      $scope.TimeSheetSubmitError = 'We can\'t process this right now.';
     });
     
 
