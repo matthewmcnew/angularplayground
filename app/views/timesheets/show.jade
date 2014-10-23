@@ -3,6 +3,7 @@ ol.breadcrumb
   li 
     a(ui-sref='inside') Home
   li.active Companies
+
 hr
 .row
   .col-md-12
@@ -16,6 +17,8 @@ hr
         li.pull-right
           h2 Total: 
             span {{ timesheet.total }}
+          button.btn.btn-default(ng-click="submitTimeSheet()") Submit Time Sheet
+          {{TimeSheetSubmitError}}
       
       form(ng-submit="addLineItem()")
         table.table.table-hover
