@@ -6,7 +6,7 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
    var _api = {};
    _api.createForm = $resource(ENV.apiEndpoint + 'api/employees/:employee_id/timesheets/new', {employee_id:'@employee_id'});
    _api.timeSheets = $resource(ENV.apiEndpoint + 'api/employees/:employee_id/timesheets', {employee_id:'@employee_id'});
-   _api.timeSheetsSubmit = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id/submit', {timesheet_id:'@timesheet_id'});
+   _api.submitTimeSheet = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id/submit', {timesheet_id:'@timesheet_id'});
 
    return {
       
@@ -32,7 +32,6 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
       }, 
       
       submitForm: function(data) {
-
          _api.timeSheets.save(data).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimesheetsService.submitForm', response);
@@ -43,15 +42,14 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
          });
       },
 
-      timeSheetsSubmit: function(timesheet_id, token) {
-
-         _api.timeSheetsSubmit.save({timesheet_id: timesheet_id, access_token: token}).$promise.then(function(response) {
+      submitTimeSheet: function(timesheet_id, token, employee_id) {
+         _api.submitTimeSheet.save({timesheet_id: timesheet_id, access_token: token, employee_id: employee_id}).$promise.then(function(response) {
             // broadcast success event
-            $rootScope.$broadcast('TimesheetsService.timeSheetsSubmit', response);
+            $rootScope.$broadcast('TimesheetsService.submitTimeSheet', response);
          }, 
          function(error) {
             // broadcast failure event
-            $rootScope.$broadcast('TimesheetsService.timeSheetsSubmitError', error);
+            $rootScope.$broadcast('TimesheetsService.submitTimeSheetError', error);
          });
       }
    };
