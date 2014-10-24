@@ -23,40 +23,41 @@ angular
   ])
   .config(function(localStorageServiceProvider){
     localStorageServiceProvider.setPrefix('projectX');
-  }).config(function ($stateProvider, $urlRouterProvider, userRoles) {
+  }).config(function ($stateProvider, $urlRouterProvider, userRoles, $locationProvider) {
+    $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/login');
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'views/inside.html',
+        templateUrl: '/views/inside.html',
         data: {
           role: userRoles.user
         }
       })
       .state('login', {
         url: '/login',
-        templateUrl: 'views/login.html',
+        templateUrl: '/views/login.html',
         controller: 'LoginCtrl',
         data: {
           role: userRoles.public
         }
       }).state('signup', {
         url: '/signup',
-        templateUrl: 'views/signup.html',
+        templateUrl: '/views/signup.html',
         controller: 'SignupCtrl',
         data: {
           role: userRoles.public
         }
       }).state('inside', {
         url: '/inside',
-        templateUrl: 'views/inside.html',
+        templateUrl: '/views/inside.html',
         controller: 'CompaniesCtrl',
         data: {
           role: userRoles.user
         }
       }).state('setup', {
         url: '/users/:userId/setup/:token',
-        templateUrl: 'views/setup.html',
+        templateUrl: '/views/setup.html',
         controller: 'SetupCtrl',
         data: {
           role: userRoles.pubilc
@@ -71,33 +72,33 @@ angular
         }
       }).state('timesheets.new', {
         url: '/new/:employee_id',
-        templateUrl: 'views/timesheets/new.html',
+        templateUrl: '/views/timesheets/new.html',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.index', {
         url: '/index/:employee_id',
-        templateUrl: 'views/timesheets/index.html',
+        templateUrl: '/views/timesheets/index.html',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.show', {
         url: '/:timesheetId',
-        templateUrl: 'views/timesheets/show.html'
+        templateUrl: '/views/timesheets/show.html'
       }).state('companies', {
         abstract: true,
         url: '/companies',
         template: '<ui-view/>'
       }).state('companies.new', {
         url: '/new',
-        templateUrl: 'views/companies/new.html',
+        templateUrl: '/views/companies/new.html',
         controller: 'CompaniesCtrl',
         data: {
           role: userRoles.user
         }
       }).state('companies.index', {
         url: '/',
-        templateUrl: 'views/companies/index.html',
+        templateUrl: '/views/companies/index.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
           $http.get(ENV.apiEndpoint + 'api/users/' + $stateParams.userId + '/companies' + '?access_token=' + Session.getToken())
             .then(
@@ -111,7 +112,7 @@ angular
         }
       }).state('companies.show', {
         url: '/:companyId',
-        templateUrl: 'views/companies/show.html',
+        templateUrl: '/views/companies/show.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
           $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
             .then(
@@ -128,14 +129,14 @@ angular
         template: '<ui-view/>' 
       }).state('companies.employees.new', {
         url: '/new',
-        templateUrl: 'views/employees/new.html',
+        templateUrl: '/views/employees/new.html',
         controller: 'EmployeesCtrl',
         data: {
           role: userRoles.user
         }
       }).state('companies.employees.index', {
         url: '/',
-        templateUrl: 'views/employees/index.html',
+        templateUrl: '/views/employees/index.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
           $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees?access_token=' + Session.getToken())
             .then(

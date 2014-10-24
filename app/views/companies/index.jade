@@ -5,7 +5,7 @@ ol.breadcrumb
 hr
 .row
   .col-md-12
-    a.btn.btn-success.pull-right(href='#/companies/new') New Company
+    a.btn.btn-success.pull-right(href='/companies/new') New Company
 hr
 .list-group
   a.list-group-item(ng-repeat='company in companies', ui-sref='companies.show({ companyId: company.id })') 
