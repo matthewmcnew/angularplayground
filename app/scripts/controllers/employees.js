@@ -1,6 +1,6 @@
 'use strict';
 angular.module('projectxApp')
-  .controller('EmployeesCtrl', function ($scope, $state, ENV, Session, EmployeesService, _) {
+  .controller('EmployeesCtrl', function ($scope, $state, ENV, Session, EmployeesService, _, $q, $http) {
 
     var accessToken = Session.getToken();
     $scope.employee = {};
@@ -17,7 +17,7 @@ angular.module('projectxApp')
 
     $scope.create = function create(){
       $scope.employee.access_token = accessToken;
-      $scope.employee.company_id = $state.params.companyId
+      $scope.employee.company_id = $state.params.companyId;
 
       EmployeesService.submitForm($scope.employee);
     };

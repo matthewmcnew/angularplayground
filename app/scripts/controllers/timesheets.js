@@ -28,7 +28,7 @@ angular.module('projectxApp')
 
     $scope.createNewTimeSheet = function() {
       $state.go('timesheets.new', {employee_id: $state.params.employee_id});
-    }
+    };
     
     // ----------  Create timesheet form page  ---------- //
     $scope.createForm = function() {   
