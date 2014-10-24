@@ -5,7 +5,7 @@ ol.breadcrumb(ng-init="timeSheetIndex()")
 hr
 .row
   .col-md-12
-    a.btn.btn-success.pull-right(ui-sref='timesheets.new') New Timesheet
+    a.btn.btn-success.pull-right(ng-click="createNewTimeSheet()") New Timesheet
 hr
 .list-group
   table.table.table-striped

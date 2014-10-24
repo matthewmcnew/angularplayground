@@ -70,7 +70,7 @@ angular
           role: userRoles.user
         }
       }).state('timesheets.new', {
-        url: '/new',
+        url: '/new/:employee_id',
         templateUrl: 'views/timesheets/new.html',
         data: {
           role: userRoles.user

@@ -17,6 +17,7 @@ angular.module('projectxApp')
 
     //Success listener: Get time sheet lists.
     $scope.$on('TimesheetsService.timeSheetIndex', function(event, response) {
+      console.log($state.params.employee_id);
       $scope.timesheets = response.timesheets;
     });
 
@@ -26,11 +27,13 @@ angular.module('projectxApp')
     });
     // ----------  END - gets Timesheet lists for index page  ---------- //
 
+    $scope.createNewTimeSheet = function() {
+      $state.go('timesheets.new', {employee_id: $state.params.employee_id});
+    }
     
     // ----------  Create timesheet form page  ---------- //
     $scope.createForm = function() {   
-      var id = ($state.userId === undefined || $state.userId === null) ? 1 : $state.userId;
-      TimesheetsService.createForm(id, accessToken);
+      TimesheetsService.createForm($state.params.employee_id, accessToken);
     };
 
     
