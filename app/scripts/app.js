@@ -83,11 +83,7 @@ angular
         }
       }).state('timesheets.show', {
         url: '/:timesheetId',
-        templateUrl: 'views/timesheets/show.html', 
-        controller: function($rootScope, $stateParams){
-          $rootScope.yoId = $stateParams.timesheetId; //*** Watch Out! DOESN'T EXIST!! ***//
-          // $stateParams.itemId //*** Exists! ***//  
-        }
+        templateUrl: 'views/timesheets/show.html'
       }).state('companies', {
         abstract: true,
         url: '/companies',
