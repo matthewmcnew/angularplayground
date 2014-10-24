@@ -17,7 +17,6 @@ angular.module('projectxApp')
 
     //Success listener: Get time sheet lists.
     $scope.$on('TimesheetsService.timeSheetIndex', function(event, response) {
-      console.log($state.params.employee_id);
       $scope.timesheets = response.timesheets;
     });
 
