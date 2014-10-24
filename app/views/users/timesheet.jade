@@ -1,0 +1,57 @@
+ol.breadcrumb
+  li 
+    a(ui-sref='inside') Home
+  li.active Companies
+hr
+.row
+  .col-md-12
+    section.tab(ng-controller="TimesheetsCtrl as timesheet")
+      ul.nav.nav-pills.well
+        li(ng-class="{ active: timesheet.isSelected(1) }")
+          a(ng-click="timesheet.selectTab(1)") Mon
+            span#total-hours 8
+        li(ng-class="{ active: timesheet.isSelected(2) }")
+          a(ng-click="timesheet.selectTab(2)") Tue
+        li(ng-class="{ active: timesheet.isSelected(3) }")
+          a(ng-click="timesheet.selectTab(3)") Wed
+      table.table.table-hover
+        tbody
+          tr(ng-show="timesheet.isSelected(1)")
+            td 
+              input.form-control(placeholder="Project")
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
+            td.col-xs-1
+              a.btn.btn-default Save
+            td.col-xs-1
+              i.fa.fa-trash
+          tr(ng-show="timesheet.isSelected(2)")
+            td 
+              input.form-control(placeholder="Project")
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
+            td.col-xs-1
+              a.btn.btn-default Save
+            td.col-xs-1
+              i.fa.fa-trash
+          tr(ng-show="timesheet.isSelected(3)")
+            td 
+              h4 Project {{ row }}
+            td.col-lg 
+              input.form-control(placeholder="Description of Work for row {{ row }}")
+            td.pull-right.col-xs-1
+             input.form-control(placeholder="Hours")
+            td.col-xs-1
+              a.btn.btn-default Save
+            td.col-xs-1
+              i.fa.fa-trash
+      .row
+        .col-lg-push-right Total: 
+
+      a.btn.btn-lg.btn-success(ng-click="timesheet.addRow()")
+        span Add Row
+

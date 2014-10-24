@@ -1,0 +1,24 @@
+ol.breadcrumb(ng-init="timeSheetIndex()")
+  li 
+    a(ui-sref='inside') Home
+  li.active Companies
+hr
+.row
+  .col-md-12
+    a.btn.btn-success.pull-right(ng-click="createNewTimeSheet()") New Timesheet
+hr
+.list-group
+  table.table.table-striped
+    thead
+      tr
+        th Date range
+        th status
+        th
+
+    tr(ng-repeat='timesheet in timesheets') 
+
+      td {{ timesheet.start_date }} - {{ timesheet.end_date }}
+      td {{ timesheet.status }}
+      td
+        i.fa.fa-pencil-square-o(ui-sref='timesheets.show({timesheetId: timesheet.id})')
+        

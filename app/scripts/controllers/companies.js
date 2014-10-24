@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $state, ENV, Session, CompaniesService, _) {
 
   var accessToken = Session.getToken();

@@ -31,6 +31,19 @@ angular.module('projectxApp')
         .filter(function(link) { return link.rel === 'create'; })
         .pluck('href')
         .value();
-    }
+    };
+
+
+    $scope.create = function (){
+      var deferred = $q.defer();
+      $http.post(ENV.apiEndpoint + $scope.post_link($scope.links) + '?access_token='+ accessToken, $scope.employee).then(
+        function (response) {
+          $state.go('companies.show', { companyId: response.data.employee.company.id });
+        }, function failure(response) {
+          deferred.reject(response.data.messages);
+        }
+      );
+    };
+
   });
 

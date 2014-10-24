@@ -90,6 +90,15 @@ button#signup {
   }
 }
 
+a#week.btn.btn-default.btn-lg {
+  max-height: 40px;
+}
+
+span#total-hours{
+  display: block;
+  text-align: center;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {

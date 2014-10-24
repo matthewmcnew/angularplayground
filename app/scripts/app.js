@@ -61,6 +61,29 @@ angular
         data: {
           role: userRoles.pubilc
         }
+      }).state('timesheets', {
+        url: '/timesheets',
+        abstract: true,
+        template: '<ui-view/>',
+        controller: 'TimesheetsCtrl',
+        data: {
+          role: userRoles.user
+        }
+      }).state('timesheets.new', {
+        url: '/new/:employee_id',
+        templateUrl: 'views/timesheets/new.html',
+        data: {
+          role: userRoles.user
+        }
+      }).state('timesheets.index', {
+        url: '/index/:employee_id',
+        templateUrl: 'views/timesheets/index.html',
+        data: {
+          role: userRoles.user
+        }
+      }).state('timesheets.show', {
+        url: '/:timesheetId',
+        templateUrl: 'views/timesheets/show.html'
       }).state('companies', {
         abstract: true,
         url: '/companies',
