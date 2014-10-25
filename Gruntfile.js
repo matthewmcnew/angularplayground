@@ -124,6 +124,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              require('connect-modrewrite') (['!(\\..+)$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
