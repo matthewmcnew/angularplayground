@@ -38,6 +38,11 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.fa.fa-trash {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -97,6 +102,10 @@ a#week.btn.btn-default.btn-lg {
 span#total-hours{
   display: block;
   text-align: center;
+}
+
+input.billable {
+  margin-top: 10px;
 }
 
 /* Responsive: Portrait tablets and up */

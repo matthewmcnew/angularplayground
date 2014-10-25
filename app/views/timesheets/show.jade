@@ -33,14 +33,13 @@ hr
               td.pull-right.col-xs-2
                 input.form-control(placeholder="Hours", ng-model='newItem.hours')
                 {{errors.hours[0]}}
-              td.pull-right.col-xs-1
-                input(type="checkbox", checked, ng-model='newItem.billable') 
+              td.pull-right.col-xs-2
+                input.billable(type="checkbox", checked, ng-model='newItem.billable') 
                 label Billable?
                 input(type="hidden", ng-model='newItem.billing_rate')
               td.col-xs-1
                 button.btn.btn-default(type='submit') Save
-              td.col-xs-1
-                i.fa.fa-trash
+              
 
       table.table.table-hover(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
         tbody
@@ -54,8 +53,6 @@ hr
             td.pull-right.col-xs-2
               input(type="checkbox", checked) 
               label Billable?
-            td.col-xs-1
-              a.btn.btn-default {{dayTotal}}
             td.col-xs-1
               i.fa.fa-trash(ng-click="deleteLineItem(item.line_item_id);")
           
