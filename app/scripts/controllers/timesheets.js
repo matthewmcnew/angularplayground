@@ -9,7 +9,19 @@ angular.module('projectxApp')
     $scope.item_description = '';
     $scope.item_hours = 0;
     $scope.errors = {};
+    $scope.route = {};
     
+    // ---------- Page routing ----------//
+    $scope.route.index = function() {
+      $state.go('timesheets.index', {employee_id: $scope.timesheet.employee_id});
+    };
+    $scope.route.show = function() {
+      $state.go('timesheets.show', {timesheet_id: $scope.timesheet_id, employee_id: $scope.employee_id});
+    };
+    $scope.route.new = function() {
+      $state.go('timesheets.new', {employee_id: $state.params.employee_id});
+    };
+
     // ----------  Gets Timesheet lists for index page  ---------- //
     $scope.timeSheetIndex = function() {
       TimesheetsService.timeSheetIndex($state.params.employee_id, accessToken);
@@ -27,7 +39,7 @@ angular.module('projectxApp')
     // ----------  END - gets Timesheet lists for index page  ---------- //
 
     $scope.createNewTimeSheet = function() {
-      $state.go('timesheets.new', {employee_id: $state.params.employee_id});
+      $scope.route.new();
     };
     
     // ----------  Create timesheet form page  ---------- //
@@ -52,8 +64,9 @@ angular.module('projectxApp')
 
     //Success listener: New Company created
     $scope.$on('TimesheetsService.submitForm', function(event, response) {
-      $scope.timesheetId = response.timesheet.id;
-      $state.go('timesheets.show', {timesheetId: $scope.timesheetId});
+      $scope.timesheet_id = response.timesheet.id;
+      $scope.employee_id = response.timesheet.employee_id;
+      $scope.route.show();
     });
 
     // Failure Listerner: New timesheet had validation errors.
@@ -73,7 +86,7 @@ angular.module('projectxApp')
     // ----------  Gets show data for page  ---------- //
     $scope.getLineItems = function() {
       $scope.tab = 0;
-      TimeSheetItemService.getLineItems($state.params.timesheetId);
+      TimeSheetItemService.getLineItems($state.params.timesheet_id);
     };
     
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
@@ -88,11 +101,11 @@ angular.module('projectxApp')
       $scope.newItem.billing_rate = 10;
       $scope.newItem.billing_on = 10;
       $scope.newItem.access_token = Session.getToken();
-      TimeSheetItemService.newLineItem($scope.newItem, $state.params.timesheetId);
+      TimeSheetItemService.newLineItem($scope.newItem, $state.params.timesheet_id);
     };
 
     $scope.$on('TimeSheetItemService.newLineItem', function() {
-      TimeSheetItemService.getLineItems($state.params.timesheetId);
+      TimeSheetItemService.getLineItems($state.params.timesheet_id);
       $scope.newItem = {};
     });
 
@@ -106,20 +119,20 @@ angular.module('projectxApp')
     };
 
     $scope.$on('TimeSheetItemService.deleteLineItem', function() {
-      TimeSheetItemService.getLineItems($state.params.timesheetId);
+      TimeSheetItemService.getLineItems($state.params.timesheet_id);
     });
 
     $scope.$on('TimeSheetItemService.deleteLineItemError', function() {
-      TimeSheetItemService.getLineItems($state.params.timesheetId);
+      TimeSheetItemService.getLineItems($state.params.timesheet_id);
     });
 
     // ----------  Submits timesheet for approval  ---------- //
     $scope.submitTimeSheet = function() {
-      TimesheetsService.submitTimeSheet($state.params.timesheetId, accessToken, $scope.timesheet.employee_id);
+      TimesheetsService.submitTimeSheet($state.params.timesheet_id, accessToken, $scope.timesheet.employee_id);
     };
 
     $scope.$on('TimesheetsService.submitTimeSheet', function() {
-      $state.go('timesheets.index', {employee_id: $scope.timesheet.employee_id});
+      $scope.route.index();
     });
 
     $scope.$on('TimesheetsService.submitTimeSheetError', function() {
