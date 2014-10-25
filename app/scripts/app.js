@@ -63,7 +63,7 @@ angular
           role: userRoles.pubilc
         }
       }).state('timesheets', {
-        url: '/timesheets',
+        url: '/employees',
         abstract: true,
         template: '<ui-view/>',
         controller: 'TimesheetsCtrl',
@@ -71,19 +71,19 @@ angular
           role: userRoles.user
         }
       }).state('timesheets.new', {
-        url: '/new/:employee_id',
+        url: '/:employee_id/timesheets/new',
         templateUrl: '/views/timesheets/new.html',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.index', {
-        url: '/index/:employee_id',
+        url: '/:employee_id/timesheets',
         templateUrl: '/views/timesheets/index.html',
         data: {
           role: userRoles.user
         }
       }).state('timesheets.show', {
-        url: '/:timesheetId',
+        url: '/:employee_id/timesheets/:timesheet_id',
         templateUrl: '/views/timesheets/show.html'
       }).state('companies', {
         abstract: true,
