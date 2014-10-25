@@ -20,5 +20,5 @@ hr
       td {{ timesheet.start_date }} - {{ timesheet.end_date }}
       td {{ timesheet.status }}
       td
-        i.fa.fa-pencil-square-o(ui-sref='timesheets.show({timesheetId: timesheet.id})')
+        i.fa.fa-pencil-square-o(ui-sref='timesheets.show({timesheet_id: timesheet.id, employee_id: timesheet.employee_id})')
         
