@@ -58,6 +58,7 @@ angular.module('projectxApp')
     $scope.create = function create(){
       // Applies access token to the form model
       $scope.timesheet.access_token = accessToken;
+      $scope.timesheet.employee_id = $state.params.employee_id;
       // Calls service with the new timesheet model to be created.
       TimesheetsService.submitForm($scope.timesheet);
     };
