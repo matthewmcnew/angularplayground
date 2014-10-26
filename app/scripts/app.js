@@ -96,6 +96,13 @@ angular
         data: {
           role: userRoles.user
         }
+      }).state('companies.edit', {
+        url: '/:companyId/edit',
+        templateUrl: '/views/companies/edit.html',
+        controller: 'CompaniesCtrl',
+        data: {
+          role: userRoles.user
+        }
       }).state('companies.index', {
         url: '/',
         templateUrl: '/views/companies/index.html',

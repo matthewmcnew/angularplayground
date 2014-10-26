@@ -1,9 +1,11 @@
+section(ng-init="companiesEdit()")
 ol.breadcrumb
   li 
     a(ui-sref='inside') Home
   li
     a(ui-sref='companies.index') Companies
   li.active {{ company.name }}
+  li.active Edit
 hr
 
 .row
@@ -17,10 +19,4 @@ hr
           dd {{ value }}
         dl.pull-right
           a(ui-sref='companies.edit({companyId: company.id})') Edit
-  .col-md-4
-    .panel.panel-success
-      .panel-heading
-        h3.panel-title Links
-      .panel-body          
-        a(ui-sref='companies.employees.index({companyId: company.id})') Employee
 

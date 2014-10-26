@@ -4,14 +4,28 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
 
    // Object to hold resources for companies.
    var _api = {};
+
    _api.createForm = $resource(ENV.apiEndpoint + 'api/users/:userId/companies/new', {userId:'@id'});
    _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies');
-
+   _api.company = $resource(ENV.apiEndpoint + 'api/companies/:company_id', {company_id:'@company_id'});
+   
    return {
       /* Gets data to build the new company form.
       * @param id - current user id
       * @param token - user access token. 
       */
+
+      companiesEdit: function(company_id, token) {
+         _api.company.get({'company_id':company_id, 'access_token': token}).$promise.then(function(response) {
+            // broadcast success event
+            $rootScope.$broadcast('CompaniesService.companiesEdit', response);
+         }, 
+         function(error) {
+            // broadcast failure event
+            $rootScope.$broadcast('CompaniesService.companiesEditError', error);
+         });
+      },
+
       createForm: function(id, token) {
          _api.createForm.get({userId: id, access_token: token}).$promise.then(function(response) {
             // broadcast success event

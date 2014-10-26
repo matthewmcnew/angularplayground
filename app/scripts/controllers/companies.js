@@ -5,7 +5,29 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
   var accessToken = Session.getToken();
   $scope.company = {};
   $scope.errors = {};
+  $scope.route = {};
   
+  // ---------- Page routing ----------//
+    $scope.route.edit = function() {
+      $state.go('companies.edit', {company_id: $scope.company.id});
+    };
+
+
+  // ----------  Gets Company for edit page  ---------- //
+    $scope.companiesEdit = function() {
+      CompaniesService.companiesEdit($state.params.companyId, accessToken);
+    };
+
+  //Success listener: Get company for edit.
+    $scope.$on('CompaniesService.companiesEdit', function(event, response) {
+      $scope.company = response.company;
+    });
+
+    // Failure Listerner: not able to get company.
+    $scope.$on('CompaniesService.companiesEditError', function() {
+      console.log('what goins on!');
+    });
+
   /*
   * Executed by ng-init inside of the create form partial.
   */
