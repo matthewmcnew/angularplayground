@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectxApp')
-  .controller('TimesheetsCtrl', function ($scope, $state, $stateParams, ENV, Session, $location, TimesheetsService, TimeSheetItemService) {
+  .controller('TimesheetsCtrl', function ($scope, $state, Session, TimesheetsService, TimeSheetItemService) {
     var accessToken = Session.getToken();
     $scope.timesheet = {};
     $scope.newItem = {};
@@ -92,7 +92,7 @@ angular.module('projectxApp')
     
     $scope.$on('TimeSheetItemService.getLineItems', function(event, response) {
       $scope.timesheet = response.timesheet;
-      $scope.selectTab($scope.tab,$scope.timesheet.dates[0]);
+      $scope.selectTab($scope.tab,$scope.timesheet.dates[$scope.tab]);
     });
 
 
