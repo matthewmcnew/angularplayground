@@ -1,7 +1,6 @@
 ol.breadcrumb(ng-init="timeSheetIndex()")
   li 
-    a(ui-sref='inside') Home
-  li.active Companies
+    a() Home
 hr
 .row
   .col-md-12
@@ -15,7 +14,7 @@ hr
         th status
         th
 
-    tr(ng-repeat='timesheet in timesheets') 
+    tr(ng-repeat='timesheet in timesheets', ng-class="{success: timesheet.status==\"submitted\"}") 
 
       td {{ timesheet.start_date }} - {{ timesheet.end_date }}
       td {{ timesheet.status }}

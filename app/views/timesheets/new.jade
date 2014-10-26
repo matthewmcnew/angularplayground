@@ -1,9 +1,7 @@
 section(ng-init='createForm()')
   ol.breadcrumb
     li
-      a(ui-sref='inside') Home
-    li
-      a(ui-sref='companies.index') Companies
+      a(href="employees/{{timesheet.employee_id}}/timesheets")  Home
     li.active Create Timesheet
   hr
 

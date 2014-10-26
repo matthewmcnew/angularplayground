@@ -1,62 +1,67 @@
 section(ng-init="getLineItems()")
 ol.breadcrumb
   li 
-    a(ui-sref='inside') Home
-  li.active Companies
+    a(href="employees/{{timesheet.employee_id}}/timesheets") Home
+  li.active Timesheets
 
 hr
 .row
   .col-md-12
-    section.tab
-      ul.nav.nav-pills.well.center-box
-        li(ng-repeat="date in timesheet.dates", ng-class="{ active: tab===$index }").text-center
-          a(ng-click="selectTab($index, date)") {{date.day}}
-          span
-            {{date.date}}/{{date.month}}
+    section.tab#scroll
+      table.table
+        tr
+          td(ng-repeat="date in timesheet.dates", ng-class="{ active: tab===$index }").text-center#day-of-week
+            a#day-of-week(ng-click="selectTab($index, date)") {{date.day}}
 
-        li.pull-right
-          h2 Total: 
-            span {{ timesheet.total }}
-          button.btn.btn-default(ng-click="submitTimeSheet()") Submit Time Sheet
-          {{TimeSheetSubmitError}}
+        tr
+          td(ng-repeat="date in timesheet.dates", ng-class="{ active: tab===$index }")#date-of-week
+            h3 {{date.month}}/{{date.date}}
+            p(ng-hide="date.total===0") {{ date.total }} hours
+
       
-      form(ng-submit="addLineItem()")
-        table.table.table-hover
-          tbody
-            tr
-              td.col-xs-2
-                input.form-control(placeholder="Project", ng-model='newItem.project')
-                {{errors.project[0]}} 
-              td.col-lg 
-                input.form-control(placeholder="Description of Work for row", ng-model='newItem.description')
-                {{errors.description[0]}}
-              td.pull-right.col-xs-2
-                input.form-control(placeholder="Hours", ng-model='newItem.hours')
-                {{errors.hours[0]}}
-              td.pull-right.col-xs-2
-                input.billable(type="checkbox", checked, ng-model='newItem.billable') 
-                label Billable?
-                input(type="hidden", ng-model='newItem.billing_rate')
-              td.col-xs-1
-                button.btn.btn-default(type='submit') Save
-              
-
-      table.table.table-hover(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
+      
+    form(ng-submit="addLineItem()")
+      table.table.table-hover
         tbody
-          tr(ng-repeat="item in timesheet.line_items", ng-if="item.billable_on === date.fullDate")
-            td 
-              {{item.project}}
+          tr
+            td.col-xs-2
+              input.form-control(placeholder="Client", ng-model='newItem.client')
+            td.col-xs-2
+              input.form-control(placeholder="Project", ng-model='newItem.project')
+              {{errors.project[0]}} 
             td.col-lg 
-              {{item.description}}
-            td.pull-right.col-xs-1
-              {{item.hours}}
+              input.form-control(placeholder="Description of Work for row", ng-model='newItem.description')
+              {{errors.description[0]}}
             td.pull-right.col-xs-2
-              input(type="checkbox", checked) 
+              input.form-control(placeholder="Hours", ng-model='newItem.hours')
+              {{errors.hours[0]}}
+            td.pull-right.col-xs-2
+              input.billable(type="checkbox", checked, ng-model='newItem.billable') 
               label Billable?
+              input(type="hidden", ng-model='newItem.billing_rate')
             td.col-xs-1
-              i.fa.fa-trash(ng-click="deleteLineItem(item.line_item_id);")
-          
-      .row
-        .col-lg-3.pull-right 
-          h3 Total: {{ timesheet.dates[tab].total }}
+              button.btn.btn-default(type='submit') Save
+            
+
+    table.table.table-hover(ng-repeat="date in timesheet.dates", ng-show="tab===$index")
+      tbody
+        tr(ng-repeat="item in timesheet.line_items", ng-if="item.billable_on === date.fullDate")
+          td 
+            {{item.project}}
+          td.col-lg 
+            {{item.description}}
+          td.pull-right.col-xs-1
+            {{item.hours}}
+          td.pull-right.col-xs-2
+            input(type="checkbox", checked) 
+            label Billable?
+          td.col-xs-1
+            i.fa.fa-trash(ng-click="deleteLineItem(item.line_item_id);")
+        
+    .row
+      .col-lg-3.pull-right 
+        h2 Total: 
+          span {{ timesheet.total }}
+        button.btn.btn-success(ng-click="submitTimeSheet()") Submit Time Sheet
+        {{TimeSheetSubmitError}}
 
