@@ -1,0 +1,26 @@
+ol.breadcrumb
+  li
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref='companies.index') Companies
+  li
+    a(ui-sref="companies.show({companyId: company.id})") {{ company.name }}
+  li.active Customers
+hr
+.row
+  .col-md-12
+    a.btn.btn-success.pull-right(ui-sref='companies.customers.new({companyId: company.id})') New Customer
+hr
+.row
+  .col-md-12
+    .panel.panel-info
+      .panel-heading
+        h3.panel-title Customers
+      .panel-body
+        table.table.table-striped
+          thead
+            tr
+              th Name
+          tbody
+            tr(ng-repeat="customer in customers")
+              td {{ customer.name }}

@@ -1,5 +1,7 @@
 section(ng-init='createForm()')
 ol.breadcrumb
+  li
+    a(ui-sref='inside') Home
   li 
     a(ui-sref="companies.show({companyId: company.id})") {{ company.name }}
   li 

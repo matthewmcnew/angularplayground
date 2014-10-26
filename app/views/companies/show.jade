@@ -24,5 +24,9 @@ hr
     .panel.panel-success
       .panel-heading
         h3.panel-title Links
-      .panel-body          
-        a(ui-sref='companies.employees.index({companyId: company.id})') Employee
+      .panel-body
+        ul
+          li
+            a(ui-sref='companies.employees.index({companyId: company.id})') Employee
+          li
+            a(ui-sref='companies.customers.index({companyId: company.id})') Customers

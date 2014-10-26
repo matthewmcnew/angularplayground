@@ -1,5 +1,13 @@
 'use strict';
 
+angular.module('projectxApp').controller('CompaniesShowCtrl', function($http, $scope,$stateParams, ENV, Session) {
+  $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
+    .then(function(response){
+      $scope.company = response.data.company;
+    });
+});
+
+
 angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $state, ENV, Session, CompaniesService, _) {
 
   var accessToken = Session.getToken();

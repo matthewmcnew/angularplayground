@@ -18,10 +18,10 @@ angular
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',
-    'config', 
+    'config',
     'underscore'
   ])
-  .config(function(localStorageServiceProvider){
+  .config(function (localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('projectX');
   }).config(function ($stateProvider, $urlRouterProvider, userRoles, $locationProvider) {
     $locationProvider.html5Mode(true);
@@ -120,20 +120,38 @@ angular
       }).state('companies.show', {
         url: '/:companyId',
         templateUrl: '/views/companies/show.html',
-        controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
-            .then(
-              function(response){
-                $scope.company = response.data.company;
-              });
+        controller: 'CompaniesShowCtrl',
+        data: {
+          role: userRoles.user
+        }
+      }).state('companies.customers', {
+        abtract: true,
+        url: '/:companyId/customers',
+        template: '<ui-view/>',
+        controller: 'CompaniesShowCtrl'
+      }).state('companies.customers.index', {
+        url: '/',
+        templateUrl: '/views/customers/index.html',
+        controller: function ($http, $scope, $stateParams, ENV, Session) {
+          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/customers?access_token=' + Session.getToken())
+            .then(function (response) {
+              $scope.customers = response.data.customers;
+            });
         },
+        data: {
+          role: userRoles.user
+        }
+      }).state('companies.customers.new', {
+        url: '/new',
+        templateUrl: '/views/customers/new.html',
+        controller: 'CustomersCtrl',
         data: {
           role: userRoles.user
         }
       }).state('companies.employees', {
         abtract: true,
         url: '/:companyId/employees',
-        template: '<ui-view/>' 
+        template: '<ui-view/>'
       }).state('companies.employees.new', {
         url: '/new',
         templateUrl: '/views/employees/new.html',
@@ -144,23 +162,23 @@ angular
       }).state('companies.employees.index', {
         url: '/',
         templateUrl: '/views/employees/index.html',
-        controller: function($http, $scope,$stateParams, ENV, Session) {
+        controller: function ($http, $scope, $stateParams, ENV, Session) {
           $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees?access_token=' + Session.getToken())
             .then(
-              function (response) {
-                $scope.employees = response.data.company.employees;
-                $scope.company = response.data.company;
-              });
+            function (response) {
+              $scope.employees = response.data.company.employees;
+              $scope.company = response.data.company;
+            });
         },
         data: {
           role: userRoles.user
         }
       });
-  }).run(function($rootScope, userRoles, Auth, $state){
+  }).run(function ($rootScope, userRoles, Auth, $state) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
       var nextRole = next.data.role;
-      if(nextRole === userRoles.user){
-        if(!Auth.isAuthenticated()) {
+      if (nextRole === userRoles.user) {
+        if (!Auth.isAuthenticated()) {
           event.preventDefault();
           $state.go('login');
         }

@@ -1,0 +1,72 @@
+section
+ol.breadcrumb
+  li
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref="companies.show({companyId: company.id})") {{ company.name }}
+  li
+    a(ui-sref="companies.customers.index({companyId: company.id})") Customers
+  li.active Create Customer
+hr
+
+form(name='CreateForm', ng-submit='create()')
+  .form-group(ng-repeat="field in fields")
+    h3
+      | Customer
+    div(ng-if= "field.type == 'string' && field.options === undefined")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer[field.name]", placeholder="Enter {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length > 5")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length <= 5")
+      label {{ field.label }}
+      select.form-control(type='text', ng-model='customer[field.name]', required)
+        option(ng-repeat= "option in field.options") {{ option }}
+    div(ng-if="field.type == 'boolean'")
+      .checkbox
+        label
+          input(type='checkbox',ng-model="customer[field.name]")
+          {{ field.label }}
+
+  h3
+    | Billing Address
+  .form-group(ng-repeat="field in billingAddressFields")
+    div(ng-if= "field.type == 'string' && field.options === undefined")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer.billing_address[field.name]", placeholder="Enter {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length > 5")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer.billing_address[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length <= 5")
+      label {{ field.label }}
+      select.form-control(type='text', ng-model='customer.billing_address[field.name]', required)
+        option(ng-repeat= "option in field.options") {{ option }}
+    div(ng-if="field.type == 'boolean'")
+      .checkbox
+        label
+          input(type='checkbox',ng-model="customer.billing_address[field.name]")
+          {{ field.label }}
+
+  h3
+    | Shipping Address
+  .form-group(ng-repeat="field in shippingAddressFields")
+    div(ng-if= "field.type == 'string' && field.options === undefined")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer.shipping_address[field.name]", placeholder="Enter {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length > 5")
+      label {{ field.label }}
+      input.form-control(type='text',ng-model="customer.shipping_address[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", placeholder="Type {{ field.label }}", required)
+    div(ng-if="field.type == 'string' &&  field.options.length <= 5")
+      label {{ field.label }}
+      select.form-control(type='text', ng-model='customer.shipping_address[field.name]', required)
+        option(ng-repeat= "option in field.options") {{ option }}
+    div(ng-if="field.type == 'boolean'")
+      .checkbox
+        label
+          input(type='checkbox',ng-model="customer.shipping_address[field.name]")
+          {{ field.label }}
+
+
+  .form-group
+    button.btn.btn-success.pull-right(type='submit') Create Customer
