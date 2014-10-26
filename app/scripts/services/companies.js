@@ -7,6 +7,7 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
 
    _api.createForm = $resource(ENV.apiEndpoint + 'api/users/:userId/companies/new', {userId:'@id'});
    _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies');
+   _api.submitUpdateForm = $resource(ENV.apiEndpoint + 'api/companies/:company_id/update', { company_id: '@company_id' });
    _api.company = $resource(ENV.apiEndpoint + 'api/companies/:company_id', {company_id:'@company_id'});
    
    return {
@@ -47,6 +48,17 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
          function(error) {
             // broadcast failure event
             $rootScope.$broadcast('CompaniesService.submitFormError', error);
+         });
+      },
+
+      submitUpdateForm: function(data) {
+         _api.submitUpdateForm.save({company_id: data.id}, data).$promise.then(function() {
+            // broadcast success event
+            $rootScope.$broadcast('CompaniesService.submitUpdateForm');
+         }, 
+         function(error) {
+            // broadcast failure event
+            $rootScope.$broadcast('CompaniesService.submitUpdateForm', error);
          });
       }
    };

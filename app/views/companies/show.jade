@@ -1,3 +1,4 @@
+section(ng-init="companiesEdit()")
 ol.breadcrumb
   li 
     a(ui-sref='inside') Home
@@ -16,11 +17,12 @@ hr
           dt.pull-left {{ key }}
           dd {{ value }}
         dl.pull-right
-          a(ui-sref='companies.edit({companyId: company.id})') Edit
+          a.btn.btn-primary(ui-sref='companies.edit({companyId: company.id})')
+            i.fa.fa-edit.fa-sm
+              |  Edit
   .col-md-4
     .panel.panel-success
       .panel-heading
         h3.panel-title Links
       .panel-body          
         a(ui-sref='companies.employees.index({companyId: company.id})') Employee
-

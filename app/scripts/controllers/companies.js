@@ -63,10 +63,23 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
     CompaniesService.submitForm($scope.company);
   };
 
+  // Form submit action to update a company
+  $scope.update = function update(){
+    // Applies access token to the form model
+    $scope.company.access_token = accessToken;
+    // Calls service with the new company model to be created.
+    CompaniesService.submitUpdateForm($scope.company);
+  };
+
   //Success listener: New Company created
   $scope.$on('CompaniesService.submitForm', function() {
     $state.go('companies.index');
   });
+
+  $scope.$on('CompaniesService.submitUpdateForm', function() {
+    $state.go('companies.show');
+  });
+
 
   // Failure Listerner: New company had validation errors.
   $scope.$on('CompaniesService.submitFormError', function(event, response) {
