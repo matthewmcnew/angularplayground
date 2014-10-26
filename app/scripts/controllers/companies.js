@@ -5,7 +5,29 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
   var accessToken = Session.getToken();
   $scope.company = {};
   $scope.errors = {};
+  $scope.route = {};
   
+  // ---------- Page routing ----------//
+    $scope.route.edit = function() {
+      $state.go('companies.edit', {company_id: $scope.company.id});
+    };
+
+
+  // ----------  Gets Company for edit page  ---------- //
+    $scope.companiesEdit = function() {
+      CompaniesService.companiesEdit($state.params.companyId, accessToken);
+    };
+
+  //Success listener: Get company for edit.
+    $scope.$on('CompaniesService.companiesEdit', function(event, response) {
+      $scope.company = response.company;
+    });
+
+    // Failure Listerner: not able to get company.
+    $scope.$on('CompaniesService.companiesEditError', function() {
+      console.log('what goins on!');
+    });
+
   /*
   * Executed by ng-init inside of the create form partial.
   */
@@ -41,10 +63,23 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
     CompaniesService.submitForm($scope.company);
   };
 
+  // Form submit action to update a company
+  $scope.update = function update(){
+    // Applies access token to the form model
+    $scope.company.access_token = accessToken;
+    // Calls service with the new company model to be created.
+    CompaniesService.submitUpdateForm($scope.company);
+  };
+
   //Success listener: New Company created
   $scope.$on('CompaniesService.submitForm', function() {
     $state.go('companies.index');
   });
+
+  $scope.$on('CompaniesService.submitUpdateForm', function() {
+    $state.go('companies.show');
+  });
+
 
   // Failure Listerner: New company had validation errors.
   $scope.$on('CompaniesService.submitFormError', function(event, response) {

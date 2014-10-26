@@ -1,0 +1,48 @@
+section(ng-init="companiesEdit()")
+section(ng-init='createForm()')
+ol.breadcrumb
+  li 
+    a(ui-sref='inside') Home
+  li
+    a(ui-sref='companies.index') Companies
+  li
+    a(href="companies/{{company.id }}") {{company.name}}
+  li.active Edit
+hr
+
+.row
+  .col-md-8
+    .panel.panel-info
+      .panel-heading
+        h3.panel-title Company Info
+      .panel-body          
+        form(name='CreateForm', ng-submit='update()')
+          .form-group(ng-repeat="field in fields")
+            div(ng-if= "field.type == 'input'")
+              {{field.error}}
+              dl.dl-horizontal
+                dt.pull-left {{ field.label }}
+                dd
+                  input.form-control(type='text',ng-model="company[field.name]", required)
+            div(ng-if="field.type == 'select'")
+              {{field.error}}
+              dl.dl-horizontal 
+                dt.pull-left {{ field.label }}
+                dd
+                  input.form-control(type='text',ng-model="company[field.name]", typeahead="option for option in field.options | filter:$viewValue | limitTo:8", required)  
+          .form-group
+            button.btn.btn-success.pull-right(type='submit') Update Company
+
+  .col-md-4
+    .panel.panel-success
+      .panel-heading
+        h3.panel-title Main Address
+      .panel-body          
+
+  .col-md-4
+    .panel.panel-success
+      .panel-heading
+        h3.panel-title Billing Address
+      .panel-body          
+
+
