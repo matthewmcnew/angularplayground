@@ -15,7 +15,7 @@ hr
         th status
         th
 
-    tr(ng-repeat='timesheet in timesheets') 
+    tr(ng-repeat='timesheet in timesheets', ng-class="{success: timesheet.status==\"submitted\"}") 
 
       td {{ timesheet.start_date }} - {{ timesheet.end_date }}
       td {{ timesheet.status }}
