@@ -5,8 +5,8 @@ angular.module('projectxApp').factory('EmployeesService', function Auth(ENV, $re
    _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies/:companyId/employees', { companyId:'@company_id' } );
   
   return {
-      createForm: function(id, token) {
-         _api.createForm.get({companyId: id, access_token: token}).$promise.then(function(response) {
+      createForm: function(id) {
+         _api.createForm.get({companyId: id}).$promise.then(function(response) {
             $rootScope.$broadcast('EmployeesService.createForm', response);
          }, function(error) {
             throw new Error('There was an error loading the form.', error);

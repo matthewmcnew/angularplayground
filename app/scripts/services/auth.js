@@ -23,7 +23,7 @@ angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, E
     },
 
     signout: function() {
-      _api.login.delete({id:Session.getUserID(), access_token: Session.getToken()}).$promise.then(function(response) {
+      _api.login.delete({id:Session.getUserID()}).$promise.then(function(response) {
         Session.destroy();
         $rootScope.$broadcast('Auth.signout', response);
       });

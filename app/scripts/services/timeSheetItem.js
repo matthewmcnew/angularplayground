@@ -37,7 +37,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
 
    return {
       getLineItems: function(timesheet_id) {
-         _api.createForm.get({'timesheet_id': timesheet_id, 'access_token': Session.getToken()}).$promise.then(function(response) {
+         _api.createForm.get({'timesheet_id': timesheet_id}).$promise.then(function(response) {
             // broadcast success event
             var data = prepareLineItems(response);
             data = getTimeSheetTotalHours(data);
@@ -63,7 +63,7 @@ angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV,
       },
 
       deleteLineItem: function(id) {
-      	_api.deleteLineItem.delete({'id': id, 'access_token': Session.getToken()}).$promise.then(function(response) {
+      	_api.deleteLineItem.delete({'id': id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimeSheetItemService.deleteLineItem', response);      
 

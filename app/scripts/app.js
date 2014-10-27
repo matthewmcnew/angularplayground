@@ -23,7 +23,9 @@ angular
   ])
   .config(function (localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('projectX');
-  }).config(function ($stateProvider, $urlRouterProvider, userRoles, $locationProvider) {
+  }).config(function ($stateProvider, $urlRouterProvider, userRoles, $locationProvider, $httpProvider) {
+    $httpProvider.interceptors.push('AuthTokenInterceptor');
+
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/login');
     $stateProvider
@@ -107,7 +109,7 @@ angular
         url: '/',
         templateUrl: '/views/companies/index.html',
         controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/users/' + $stateParams.userId + '/companies' + '?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint + 'api/users/' + $stateParams.userId + '/companies')
             .then(
               function (response) {
                 $scope.companies = response.data.companies;
@@ -133,7 +135,7 @@ angular
         url: '/',
         templateUrl: '/views/customers/index.html',
         controller: function ($http, $scope, $stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/customers?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/customers')
             .then(function (response) {
               $scope.customers = response.data.customers;
             });
@@ -163,7 +165,7 @@ angular
         url: '/',
         templateUrl: '/views/employees/index.html',
         controller: function ($http, $scope, $stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees?access_token=' + Session.getToken())
+          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees')
             .then(
             function (response) {
               $scope.employees = response.data.company.employees;

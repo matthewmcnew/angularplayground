@@ -10,8 +10,8 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
 
    return {
       
-      timeSheetIndex: function(employee_id, token) {
-         _api.timeSheets.get({'employee_id':employee_id, 'access_token': token}).$promise.then(function(response) {
+      timeSheetIndex: function(employee_id) {
+         _api.timeSheets.get({'employee_id':employee_id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimesheetsService.timeSheetIndex', response);
          }, 
@@ -21,8 +21,8 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
          });
       },
       
-      createForm: function(employee_id, token) {
-         _api.createForm.get({employee_id: employee_id, access_token: token}).$promise.then(function(response) {
+      createForm: function(employee_id) {
+         _api.createForm.get({employee_id: employee_id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimesheetsService.createForm', response);
          }, function(error) {
@@ -42,8 +42,8 @@ angular.module('projectxApp').factory('TimesheetsService', function Auth(ENV, $r
          });
       },
 
-      submitTimeSheet: function(timesheet_id, token, employee_id) {
-         _api.submitTimeSheet.save({timesheet_id: timesheet_id, access_token: token, employee_id: employee_id}).$promise.then(function(response) {
+      submitTimeSheet: function(timesheet_id, employee_id) {
+         _api.submitTimeSheet.save({timesheet_id: timesheet_id, employee_id: employee_id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('TimesheetsService.submitTimeSheet', response);
          }, 

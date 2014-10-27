@@ -6,7 +6,7 @@ angular.module('projectxApp').controller('SetupCtrl', function ($scope, $state, 
     };
 
     $scope.setup = function setup() {
-      Setup.setup($state.params.userId, $state.params.token, $scope.user);
+      Setup.setup($state.params.userId, $scope.user);
     };
 
     // Success listener: Setup

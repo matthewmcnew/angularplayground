@@ -13,11 +13,10 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
    return {
       /* Gets data to build the new company form.
       * @param id - current user id
-      * @param token - user access token. 
       */
 
-      companiesEdit: function(company_id, token) {
-         _api.company.get({'company_id':company_id, 'access_token': token}).$promise.then(function(response) {
+      companiesEdit: function(company_id) {
+         _api.company.get({'company_id':company_id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('CompaniesService.companiesEdit', response);
          }, 
@@ -27,8 +26,8 @@ angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $re
          });
       },
 
-      createForm: function(id, token) {
-         _api.createForm.get({userId: id, access_token: token}).$promise.then(function(response) {
+      createForm: function(id) {
+         _api.createForm.get({userId: id}).$promise.then(function(response) {
             // broadcast success event
             $rootScope.$broadcast('CompaniesService.createForm', response);
          }, function(error) {

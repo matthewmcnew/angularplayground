@@ -2,7 +2,6 @@
 
 angular.module('projectxApp')
   .controller('TimesheetsCtrl', function ($scope, $state, Session, TimesheetsService, TimeSheetItemService) {
-    var accessToken = Session.getToken();
     $scope.timesheet = {};
     $scope.newItem = {};
     $scope.item_project = '';
@@ -24,7 +23,7 @@ angular.module('projectxApp')
 
     // ----------  Gets Timesheet lists for index page  ---------- //
     $scope.timeSheetIndex = function() {
-      TimesheetsService.timeSheetIndex($state.params.employee_id, accessToken);
+      TimesheetsService.timeSheetIndex($state.params.employee_id);
     };
 
     //Success listener: Get time sheet lists.
@@ -44,7 +43,7 @@ angular.module('projectxApp')
     
     // ----------  Create timesheet form page  ---------- //
     $scope.createForm = function() {   
-      TimesheetsService.createForm($state.params.employee_id, accessToken);
+      TimesheetsService.createForm($state.params.employee_id);
     };
 
     
@@ -56,8 +55,6 @@ angular.module('projectxApp')
 
     // Form submit action to create a new timesheet
     $scope.create = function create(){
-      // Applies access token to the form model
-      $scope.timesheet.access_token = accessToken;
       $scope.timesheet.employee_id = $state.params.employee_id;
       // Calls service with the new timesheet model to be created.
       TimesheetsService.submitForm($scope.timesheet);
@@ -101,7 +98,6 @@ angular.module('projectxApp')
       $scope.newItem.client = 'tester';
       $scope.newItem.billing_rate = 10;
       $scope.newItem.billing_on = 10;
-      $scope.newItem.access_token = Session.getToken();
       TimeSheetItemService.newLineItem($scope.newItem, $state.params.timesheet_id);
     };
 
@@ -129,7 +125,7 @@ angular.module('projectxApp')
 
     // ----------  Submits timesheet for approval  ---------- //
     $scope.submitTimeSheet = function() {
-      TimesheetsService.submitTimeSheet($state.params.timesheet_id, accessToken, $scope.timesheet.employee_id);
+      TimesheetsService.submitTimeSheet($state.params.timesheet_id, $scope.timesheet.employee_id);
     };
 
     $scope.$on('TimesheetsService.submitTimeSheet', function() {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('projectxApp').controller('CompaniesShowCtrl', function($http, $scope,$stateParams, ENV, Session) {
-  $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId + '?access_token=' + Session.getToken())
+  $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId)
     .then(function(response){
       $scope.company = response.data.company;
     });
@@ -10,7 +10,6 @@ angular.module('projectxApp').controller('CompaniesShowCtrl', function($http, $s
 
 angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $state, ENV, Session, CompaniesService, _) {
 
-  var accessToken = Session.getToken();
   $scope.company = {};
   $scope.errors = {};
   $scope.route = {};
@@ -23,7 +22,7 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
 
   // ----------  Gets Company for edit page  ---------- //
     $scope.companiesEdit = function() {
-      CompaniesService.companiesEdit($state.params.companyId, accessToken);
+      CompaniesService.companiesEdit($state.params.companyId);
     };
 
   //Success listener: Get company for edit.
@@ -48,7 +47,7 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
     */
     var id = ($state.userId === undefined || $state.userId === null) ? 1 : $state.userId;
     // Calls the service to perfom the request
-    CompaniesService.createForm(id, accessToken); 
+    CompaniesService.createForm(id);
   };
 
   /*
@@ -65,16 +64,12 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
 
   // Form submit action to create a new company
   $scope.create = function create(){
-    // Applies access token to the form model
-    $scope.company.access_token = accessToken;
     // Calls service with the new company model to be created.
     CompaniesService.submitForm($scope.company);
   };
 
   // Form submit action to update a company
   $scope.update = function update(){
-    // Applies access token to the form model
-    $scope.company.access_token = accessToken;
     // Calls service with the new company model to be created.
     CompaniesService.submitUpdateForm($scope.company);
   };

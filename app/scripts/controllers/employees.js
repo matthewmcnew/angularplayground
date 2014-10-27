@@ -2,11 +2,10 @@
 angular.module('projectxApp')
   .controller('EmployeesCtrl', function ($scope, $state, ENV, Session, EmployeesService, _, $q, $http) {
 
-    var accessToken = Session.getToken();
     $scope.employee = {};
     
     $scope.createForm = function() { 
-      EmployeesService.createForm($state.params.companyId, accessToken); 
+      EmployeesService.createForm($state.params.companyId);
     };
 
     $scope.$on('EmployeesService.createForm', function(event, response) {
@@ -16,7 +15,6 @@ angular.module('projectxApp')
     });
 
     $scope.create = function create(){
-      $scope.employee.access_token = accessToken;
       $scope.employee.company_id = $state.params.companyId;
 
       EmployeesService.submitForm($scope.employee);
@@ -36,7 +34,7 @@ angular.module('projectxApp')
 
     $scope.create = function (){
       var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + $scope.post_link($scope.links) + '?access_token='+ accessToken, $scope.employee).then(
+      $http.post(ENV.apiEndpoint + $scope.post_link(), $scope.employee).then(
         function (response) {
           $state.go('companies.show', { companyId: response.data.employee.company.id });
         }, function failure(response) {
