@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('projectxApp').factory('TimeSheetItemService', function Auth(ENV, $resource, $rootScope, Session, _) {
+angular.module('projectxApp').factory('TimeSheetItemService', function Auth($resource, $rootScope, Session, _) {
 
    // Object to hold resources for companies.
    var _api = {};
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id', {timesheet_id: '@timesheet_id'});
-   _api.newLineItem = $resource(ENV.apiEndpoint + 'api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
-   _api.deleteLineItem = $resource(ENV.apiEndpoint + 'api/line_items/:id', {id: '@id'});
+   _api.createForm = $resource('api/timesheets/:timesheet_id', {timesheet_id: '@timesheet_id'});
+   _api.newLineItem = $resource('api/timesheets/:timesheet_id/line_items', {timesheet_id: '@timesheet_id'});
+   _api.deleteLineItem = $resource('api/line_items/:id', {id: '@id'});
 
 
 	var prepareLineItems = function(data) {

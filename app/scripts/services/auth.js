@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, ENV, $q, Session, $resource) {
+angular.module('projectxApp').factory('Auth', function Auth($rootScope, $http, $q, Session, $resource) {
     
   // Object to hold resources for companies.
   var _api = {};
-  _api.login = $resource(ENV.apiEndpoint + 'api/sessions/:id', {id: '@id'});
-  _api.signup = $resource(ENV.apiEndpoint + 'api/users');
+  _api.login = $resource('api/sessions/:id', {id: '@id'});
+  _api.signup = $resource('api/users');
 
   return {
 

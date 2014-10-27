@@ -1,6 +1,6 @@
 'use strict';
 angular.module('projectxApp')
-  .controller('EmployeesCtrl', function ($scope, $state, ENV, Session, EmployeesService, _, $q, $http) {
+  .controller('EmployeesCtrl', function ($scope, $state, Session, EmployeesService, _, $q, $http) {
 
     $scope.employee = {};
     
@@ -34,7 +34,7 @@ angular.module('projectxApp')
 
     $scope.create = function (){
       var deferred = $q.defer();
-      $http.post(ENV.apiEndpoint + $scope.post_link(), $scope.employee).then(
+      $http.post($scope.post_link(), $scope.employee).then(
         function (response) {
           $state.go('companies.show', { companyId: response.data.employee.company.id });
         }, function failure(response) {

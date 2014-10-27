@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('projectxApp').factory('Setup', function Auth($rootScope, ENV, Session, $resource) {
+angular.module('projectxApp').factory('Setup', function Auth($rootScope, Session, $resource) {
     
 	// Object to hold resources for companies.
 	var _api = {};
-	_api.setup = $resource(ENV.apiEndpoint + 'api/users/:userId/setup_account', {userId:'@id', setup_link: '@tk'});
+	_api.setup = $resource('api/users/:userId/setup_account', {userId:'@id', setup_link: '@tk'});
 	
 	return {
 		/* Submits the form to create a new company.

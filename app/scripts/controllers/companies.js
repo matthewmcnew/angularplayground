@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('projectxApp').controller('CompaniesShowCtrl', function($http, $scope,$stateParams, ENV, Session) {
-  $http.get(ENV.apiEndpoint + 'api/companies/'+ $stateParams.companyId)
+angular.module('projectxApp').controller('CompaniesShowCtrl', function($http, $scope,$stateParams, Session) {
+  $http.get('api/companies/'+ $stateParams.companyId)
     .then(function(response){
       $scope.company = response.data.company;
     });
 });
 
 
-angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $state, ENV, Session, CompaniesService, _) {
+angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $state, Session, CompaniesService, _) {
 
   $scope.company = {};
   $scope.errors = {};
@@ -32,7 +32,6 @@ angular.module('projectxApp').controller('CompaniesCtrl', function ($scope, $sta
 
     // Failure Listerner: not able to get company.
     $scope.$on('CompaniesService.companiesEditError', function() {
-      console.log('what goins on!');
     });
 
   /*

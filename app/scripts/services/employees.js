@@ -1,8 +1,8 @@
 'use strict';
-angular.module('projectxApp').factory('EmployeesService', function Auth(ENV, $resource, $rootScope) {
+angular.module('projectxApp').factory('EmployeesService', function Auth($resource, $rootScope) {
    var _api = {};
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/companies/:companyId/employees/new', {companyId:'@id'});
-   _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies/:companyId/employees', { companyId:'@company_id' } );
+   _api.createForm = $resource('api/companies/:companyId/employees/new', {companyId:'@id'});
+   _api.submitForm = $resource('api/companies/:companyId/employees', { companyId:'@company_id' } );
   
   return {
       createForm: function(id) {

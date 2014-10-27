@@ -25,6 +25,7 @@ angular
     localStorageServiceProvider.setPrefix('projectX');
   }).config(function ($stateProvider, $urlRouterProvider, userRoles, $locationProvider, $httpProvider) {
     $httpProvider.interceptors.push('AuthTokenInterceptor');
+    $httpProvider.interceptors.push('EndpointInterceptor');
 
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise('/login');
@@ -108,8 +109,8 @@ angular
       }).state('companies.index', {
         url: '/',
         templateUrl: '/views/companies/index.html',
-        controller: function($http, $scope,$stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/users/' + $stateParams.userId + '/companies')
+        controller: function($http, $scope,$stateParams, Session) {
+          $http.get('api/users/' + $stateParams.userId + '/companies')
             .then(
               function (response) {
                 $scope.companies = response.data.companies;
@@ -134,8 +135,8 @@ angular
       }).state('companies.customers.index', {
         url: '/',
         templateUrl: '/views/customers/index.html',
-        controller: function ($http, $scope, $stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/customers')
+        controller: function ($http, $scope, $stateParams, Session) {
+          $http.get('api/companies/' + $stateParams.companyId + '/customers')
             .then(function (response) {
               $scope.customers = response.data.customers;
             });
@@ -164,8 +165,8 @@ angular
       }).state('companies.employees.index', {
         url: '/',
         templateUrl: '/views/employees/index.html',
-        controller: function ($http, $scope, $stateParams, ENV, Session) {
-          $http.get(ENV.apiEndpoint + 'api/companies/' + $stateParams.companyId + '/employees')
+        controller: function ($http, $scope, $stateParams, Session) {
+          $http.get('api/companies/' + $stateParams.companyId + '/employees')
             .then(
             function (response) {
               $scope.employees = response.data.company.employees;

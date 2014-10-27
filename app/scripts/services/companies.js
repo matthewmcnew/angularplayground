@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('projectxApp').factory('CompaniesService', function Auth(ENV, $resource, $rootScope) {
+angular.module('projectxApp').factory('CompaniesService', function Auth($resource, $rootScope) {
 
    // Object to hold resources for companies.
    var _api = {};
 
-   _api.createForm = $resource(ENV.apiEndpoint + 'api/users/:userId/companies/new', {userId:'@id'});
-   _api.submitForm = $resource(ENV.apiEndpoint + 'api/companies');
-   _api.submitUpdateForm = $resource(ENV.apiEndpoint + 'api/companies/:company_id/update', { company_id: '@company_id' });
-   _api.company = $resource(ENV.apiEndpoint + 'api/companies/:company_id', {company_id:'@company_id'});
+   _api.createForm = $resource('api/users/:userId/companies/new', {userId:'@id'});
+   _api.submitForm = $resource('api/companies');
+   _api.submitUpdateForm = $resource('api/companies/:company_id/update', { company_id: '@company_id' });
+   _api.company = $resource('api/companies/:company_id', {company_id:'@company_id'});
    
    return {
       /* Gets data to build the new company form.

@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('projectxApp').factory('CustomersService', function Auth(ENV, $http, $rootScope, $resource) {
+angular.module('projectxApp').factory('CustomersService', function Auth($http, $rootScope, $resource) {
 
   function newCustomerPath(data) {
-    return ENV.apiEndpoint + 'api/companies/:companyId/customers/new'.replace(':companyId', data.companyId);
+    return 'api/companies/:companyId/customers/new'.replace(':companyId', data.companyId);
   }
 
   return {
@@ -11,7 +11,6 @@ angular.module('projectxApp').factory('CustomersService', function Auth(ENV, $ht
        return $http.get(newCustomerPath({companyId: id}));
     },
     submitForm: function (path, data) {
-      path = ENV.apiEndpoint + path;
       return $http.post(path, {customer: data});
     }
   };
